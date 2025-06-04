@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wahhab Zendehdel - Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        /* Light mode variables */
+        :root {
+            --bg-color: #f3f4f6; /* gray-100 */
+            --text-color: #1f2937; /* gray-800 */
+            --card-bg-color: #ffffff; /* white */
+            --border-color: #e5e7eb; /* gray-200 */
+            --primary-color: #16a34a; /* dark-green e.g., green-600 */
+            --secondary-text-color: #4b5563; /* gray-600 */
+            --navbar-bg: rgba(255, 255, 255, 0.8);
+            --shadow-color: rgba(0, 0, 0, 0.1);
+        }
+        /* Dark mode variables */
+        .dark {
+            --bg-color: #1f2937; /* gray-800 */
+            --text-color: #f3f4f6; /* gray-100 */
+            --card-bg-color: #374151; /* gray-700 */
+            --border-color: #4b5563; /* gray-600 */
+            --primary-color: #22c55e; /* lighter-dark-green e.g., green-500 */
+            --secondary-text-color: #d1d5db; /* gray-300 */
+            --navbar-bg: rgba(29, 41, 55, 0.8); /* Adjusted for dark mode */
+            --shadow-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Apply variables */
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+        .bg-card { background-color: var(--card-bg-color); }
+        .border-custom { border-color: var(--border-color); }
+        .text-primary { color: var(--primary-color); }
+        .bg-primary { background-color: var(--primary-color); }
+        .text-secondary { color: var(--secondary-text-color); }
+        .navbar-custom-bg { background-color: var(--navbar-bg); }
+        .shadow-custom { box-shadow: 0 4px 6px -1px var(--shadow-color), 0 2px 4px -2px var(--shadow-color); }
+
+
+        .section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Toggle Switch */
+        .toggle-checkbox:checked + .toggle-label .toggle-ball {
+            transform: translateX(20px); /* Moves the ball to the right */
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: var(--primary-color);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Navigation Bar -->
+    <nav id="navbar" class="navbar-custom-bg backdrop-blur-md fixed w-full top-0 z-50 shadow-custom transition-colors duration-300">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-primary">WZ</a>
+            <div class="hidden md:flex space-x-4 items-center">
+                <a href="#hero" class="hover:text-primary transition-colors duration-300">Home</a>
+                <a href="#about" class="hover:text-primary transition-colors duration-300">About</a>
+                <a href="#projects" class="hover:text-primary transition-colors duration-300">Projects</a>
+                <a href="#contact" class="hover:text-primary transition-colors duration-300">Contact</a>
+                <!-- Dark Mode Toggle -->
+                <div class="flex items-center">
+                    <input type="checkbox" id="darkModeToggle" class="toggle-checkbox hidden">
+                    <label for="darkModeToggle" class="toggle-label flex items-center cursor-pointer w-11 h-6 rounded-full p-1 bg-gray-300 dark:bg-gray-600 transition-colors duration-300">
+                        <span class="toggle-ball w-4 h-4 bg-white rounded-full shadow-md transform transition-transform duration-300"></span>
+                    </label>
+                </div>
+            </div>
+            <div class="md:hidden flex items-center">
+                 <!-- Dark Mode Toggle for Mobile -->
+                <div class="flex items-center mr-4">
+                    <input type="checkbox" id="darkModeToggleMobile" class="toggle-checkbox hidden">
+                    <label for="darkModeToggleMobile" class="toggle-label flex items-center cursor-pointer w-11 h-6 rounded-full p-1 bg-gray-300 dark:bg-gray-600 transition-colors duration-300">
+                        <span class="toggle-ball w-4 h-4 bg-white rounded-full shadow-md transform transition-transform duration-300"></span>
+                    </label>
+                </div>
+                <button id="mobileMenuButton" class="outline-none mobile-menu-button">
+                    <svg class="w-6 h-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                        <path d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div class="hidden mobile-menu md:hidden navbar-custom-bg transition-colors duration-300">
+            <a href="#hero" class="block py-2 px-4 text-sm hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-primary">Home</a>
+            <a href="#about" class="block py-2 px-4 text-sm hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-primary">About</a>
+            <a href="#projects" class="block py-2 px-4 text-sm hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-primary">Projects</a>
+            <a href="#contact" class="block py-2 px-4 text-sm hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-primary">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="min-h-screen flex items-center justify-center pt-20 md:pt-0 section">
+        <div class="text-center px-6">
+            <img id="userAvatar" src="https://placehold.co/128x128/E0E0E0/B0B0B0?text=WZ" alt="User Avatar" class="w-32 h-32 md:w-40 md:h-40 mx-auto rounded-full mb-6 shadow-lg border-4 border-custom">
+            <h1 id="userName" class="text-4xl md:text-6xl font-bold mb-4">Hi, I'm <span class="text-primary">Wahhab Zendehdel</span></h1>
+            <p id="userBio" class="text-lg md:text-xl text-secondary mb-8 max-w-2xl mx-auto">Loading bio...</p>
+            <a href="#projects" class="bg-primary text-white font-semibold py-3 px-8 rounded-lg hover:bg-opacity-80 transition duration-300 text-lg">View My Work</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 section">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">About Me</h2>
+            <div class="w-20 h-1 bg-primary mx-auto mb-12"></div>
+            <div class="max-w-3xl mx-auto bg-card p-8 rounded-xl shadow-custom border border-custom">
+                <!-- Removed Location, Company, Blog paragraphs -->
+                <p class="text-lg text-secondary leading-relaxed mb-6">
+                    I'm a passionate developer with a knack for creating innovative and efficient solutions.
+                    My journey in tech has been driven by a constant curiosity and a desire to learn and grow.
+                    I enjoy tackling complex problems and turning ideas into reality.
+                    This portfolio showcases some of the projects I've worked on.
+                    Feel free to explore and reach out if you'd like to connect!
+                </p>
+                <div class="text-center">
+                     <a id="githubProfileLink" href="https://github.com/Wahhab-Zendehdel" target="_blank" rel="noopener noreferrer" class="inline-block bg-gray-700 dark:bg-gray-600 text-white font-semibold py-2 px-6 rounded-lg hover:bg-gray-600 dark:hover:bg-gray-500 transition duration-300">
+                        View GitHub Profile
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 section">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">My Projects</h2>
+            <div class="w-20 h-1 bg-primary mx-auto mb-12"></div>
+            <div id="projectsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project cards will be injected here by JavaScript -->
+                <div class="text-center col-span-full text-secondary">Loading projects...</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 section">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">Get In Touch</h2>
+            <div class="w-20 h-1 bg-primary mx-auto mb-12"></div>
+            <div class="max-w-xl mx-auto bg-card p-8 rounded-xl shadow-custom border border-custom">
+                <p class="text-lg text-center text-secondary mb-6">
+                    I'm always open to discussing new projects, creative ideas, or opportunities to be part of something amazing.
+                    Feel free to reach out to me.
+                </p>
+                <div class="text-center">
+                    <a id="userEmailLink" href="mailto:your-email@example.com" class="bg-primary text-white font-semibold py-3 px-8 rounded-lg hover:bg-opacity-80 transition duration-300 text-lg">
+                        Email Me
+                    </a>
+                </div>
+                 <p class="text-center text-sm text-secondary mt-6">
+                    (Note: Email will be fetched from GitHub if public, otherwise please update manually.)
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 border-t border-custom">
+        <div class="container mx-auto px-6 text-center text-secondary">
+            <p>&copy; <span id="currentYear"></span> Wahhab Zendehdel. All rights reserved.</p>
+            <p class="text-sm">Powered by <a href="https://github.com" target="_blank" class="text-primary hover:underline">GitHub</a> & <a href="https://tailwindcss.com" target="_blank" class="text-primary hover:underline">Tailwind CSS</a></p>
+        </div>
+    </footer>
+
+    <script>
+        const GITHUB_USERNAME = 'Wahhab-Zendehdel';
+        const GITHUB_API_USER_URL = `https://api.github.com/users/${GITHUB_USERNAME}`;
+        const GITHUB_API_REPOS_URL = `https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&direction=desc`;
+
+        // DOM Elements
+        const userNameEl = document.getElementById('userName');
+        const userAvatarEl = document.getElementById('userAvatar');
+        const userBioEl = document.getElementById('userBio');
+        // Note: userLocationEl, userCompanyEl, userBlogEl are no longer needed here for display,
+        // but the fetch function will still attempt to get them. This is fine, they just won't be used.
+        const userEmailLinkEl = document.getElementById('userEmailLink');
+        const projectsGridEl = document.getElementById('projectsGrid');
+        const currentYearEl = document.getElementById('currentYear');
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const darkModeToggleMobile = document.getElementById('darkModeToggleMobile');
+        const htmlElement = document.documentElement;
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const navbar = document.getElementById('navbar');
+
+        // --- Dark Mode ---
+        function applyTheme(isDark) {
+            if (isDark) {
+                htmlElement.classList.add('dark');
+                darkModeToggle.checked = true;
+                darkModeToggleMobile.checked = true;
+            } else {
+                htmlElement.classList.remove('dark');
+                darkModeToggle.checked = false;
+                darkModeToggleMobile.checked = false;
+            }
+        }
+
+        function toggleDarkMode() {
+            const isDark = htmlElement.classList.toggle('dark');
+            localStorage.setItem('darkMode', isDark);
+            applyTheme(isDark); // Ensure toggles are synced
+        }
+
+        darkModeToggle.addEventListener('change', toggleDarkMode);
+        darkModeToggleMobile.addEventListener('change', toggleDarkMode);
+
+        // Load saved theme
+        const savedDarkMode = localStorage.getItem('darkMode');
+        if (savedDarkMode === 'true') {
+            applyTheme(true);
+        } else if (savedDarkMode === 'false') {
+            applyTheme(false);
+        } else { // System preference
+            applyTheme(window.matchMedia('(prefers-color-scheme: dark)').matches);
+        }
+        
+        // Listen for system theme changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            if (localStorage.getItem('darkMode') === null) { // Only if no user preference is set
+                 applyTheme(e.matches);
+            }
+        });
+
+
+        // --- Mobile Menu ---
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        // Close mobile menu when a link is clicked
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+
+        // --- Smooth Scrolling & Active Nav Link ---
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    // Calculate offset for fixed navbar
+                    const navbarHeight = navbar.offsetHeight;
+                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+
+        // --- Intersection Observer for Section Animations ---
+        const sections = document.querySelectorAll('.section');
+        const observerOptions = {
+            root: null, // viewport
+            rootMargin: '0px',
+            threshold: 0.1 // 10% of the section is visible
+        };
+
+        const sectionObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    // observer.unobserve(entry.target); // Optional: stop observing once visible
+                } else {
+                     // Optional: remove 'visible' if you want fade-out on scroll away
+                     // entry.target.classList.remove('visible');
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => {
+            sectionObserver.observe(section);
+        });
+
+        // --- Fetch GitHub Profile Data ---
+        async function fetchGitHubProfile() {
+            try {
+                const response = await fetch(GITHUB_API_USER_URL);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+
+                // Populate Hero section
+                if (data.name) userNameEl.innerHTML = `Hi, I'm <span class="text-primary">${data.name}</span>`;
+                else userNameEl.innerHTML = `Hi, I'm <span class="text-primary">${data.login}</span>`;
+
+                if (data.avatar_url) userAvatarEl.src = data.avatar_url;
+                if (data.bio) userBioEl.textContent = data.bio;
+                else userBioEl.textContent = "A passionate developer exploring the world of code.";
+
+                // About section details (location, company, blog) are no longer displayed,
+                // but we still fetch them in case they are needed elsewhere or for future use.
+                // No need to select these elements if they are removed from HTML.
+                
+                if (data.email) {
+                    userEmailLinkEl.href = `mailto:${data.email}`;
+                } else {
+                    userEmailLinkEl.parentElement.nextElementSibling.textContent = "Email not publicly available on GitHub.";
+                }
+                document.getElementById('githubProfileLink').href = data.html_url;
+
+
+            } catch (error) {
+                console.error("Failed to fetch GitHub profile:", error);
+                userNameEl.textContent = "Wahhab Zendehdel"; // Fallback
+                userBioEl.textContent = "Error loading GitHub profile data.";
+                // No need to update location, company, blog text content if elements are removed
+            }
+        }
+
+        // --- Fetch GitHub Repositories ---
+        async function fetchGitHubRepos() {
+            try {
+                const response = await fetch(GITHUB_API_REPOS_URL);
+                 if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const repos = await response.json();
+                projectsGridEl.innerHTML = ''; // Clear loading message
+
+                if (repos.length === 0) {
+                    projectsGridEl.innerHTML = '<p class="text-center col-span-full text-secondary">No public repositories found.</p>';
+                    return;
+                }
+
+                repos.slice(0, 6).forEach(repo => { // Display up to 6 repos
+                    const projectCard = `
+                        <div class="bg-card p-6 rounded-xl shadow-custom border border-custom transform hover:scale-105 transition-transform duration-300 flex flex-col justify-between">
+                            <div>
+                                <h3 class="text-xl font-semibold mb-2">${repo.name}</h3>
+                                <p class="text-secondary text-sm mb-3 h-20 overflow-hidden">${repo.description || 'No description available.'}</p>
+                                <div class="mb-3">
+                                    ${repo.language ? `<span class="inline-block bg-green-100 text-green-700 dark:bg-green-800 dark:text-green-200 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">${repo.language}</span>` : ''}
+                                    <span class="inline-block bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">⭐ ${repo.stargazers_count}</span>
+                                    <span class="inline-block bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300 text-xs font-semibold px-2.5 py-0.5 rounded-full"> Forks: ${repo.forks_count}</span>
+                                </div>
+                            </div>
+                            <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" class="inline-block mt-auto text-primary font-medium hover:underline">View Project &rarr;</a>
+                        </div>
+                    `;
+                    projectsGridEl.innerHTML += projectCard;
+                });
+            } catch (error) {
+                console.error("Failed to fetch GitHub repositories:", error);
+                projectsGridEl.innerHTML = '<p class="text-center col-span-full text-red-500">Error loading projects. Please try again later.</p>';
+            }
+        }
+
+        // --- Initialize ---
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchGitHubProfile();
+            fetchGitHubRepos();
+            currentYearEl.textContent = new Date().getFullYear();
+        });
+
+    </script>
+</body>
+</html>
