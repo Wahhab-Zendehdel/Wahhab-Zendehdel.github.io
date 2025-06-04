@@ -71,7 +71,12 @@
     <!-- Navigation Bar -->
     <nav id="navbar" class="navbar-custom-bg backdrop-blur-md fixed w-full top-0 z-50 shadow-custom transition-colors duration-300">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold text-primary">WZ</a>
+            <!-- Updated Navbar Brand with Home Icon -->
+            <a href="#" class="text-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+                </svg>
+            </a>
             <div class="hidden md:flex space-x-4 items-center">
                 <a href="#hero" class="hover:text-primary transition-colors duration-300">Home</a>
                 <a href="#about" class="hover:text-primary transition-colors duration-300">About</a>
@@ -125,7 +130,6 @@
             <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">About Me</h2>
             <div class="w-20 h-1 bg-primary mx-auto mb-12"></div>
             <div class="max-w-3xl mx-auto bg-card p-8 rounded-xl shadow-custom border border-custom">
-                <!-- Removed Location, Company, Blog paragraphs -->
                 <p class="text-lg text-secondary leading-relaxed mb-6">
                     I'm a passionate developer with a knack for creating innovative and efficient solutions.
                     My journey in tech has been driven by a constant curiosity and a desire to learn and grow.
@@ -148,7 +152,6 @@
             <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">My Projects</h2>
             <div class="w-20 h-1 bg-primary mx-auto mb-12"></div>
             <div id="projectsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Project cards will be injected here by JavaScript -->
                 <div class="text-center col-span-full text-secondary">Loading projects...</div>
             </div>
         </div>
@@ -165,13 +168,12 @@
                     Feel free to reach out to me.
                 </p>
                 <div class="text-center">
-                    <a id="userEmailLink" href="mailto:your-email@example.com" class="bg-primary text-white font-semibold py-3 px-8 rounded-lg hover:bg-opacity-80 transition duration-300 text-lg">
+                    <!-- Updated Email Link -->
+                    <a id="userEmailLink" href="mailto:Wahhabzendehdel@gmail.com" class="bg-primary text-white font-semibold py-3 px-8 rounded-lg hover:bg-opacity-80 transition duration-300 text-lg">
                         Email Me
                     </a>
                 </div>
-                 <p class="text-center text-sm text-secondary mt-6">
-                    (Note: Email will be fetched from GitHub if public, otherwise please update manually.)
-                </p>
+                 <!-- Removed note about fetching email -->
             </div>
         </div>
     </section>
@@ -179,8 +181,8 @@
     <!-- Footer -->
     <footer class="py-8 border-t border-custom">
         <div class="container mx-auto px-6 text-center text-secondary">
-            <p>&copy; <span id="currentYear"></span> Wahhab Zendehdel. All rights reserved.</p>
-            <p class="text-sm">Powered by <a href="https://github.com" target="_blank" class="text-primary hover:underline">GitHub</a> & <a href="https://tailwindcss.com" target="_blank" class="text-primary hover:underline">Tailwind CSS</a></p>
+            <!-- Updated Footer Text -->
+            <p>&copy; <span id="currentYear"></span> Wahhab Zendehdel. Crafted with passion.</p>
         </div>
     </footer>
 
@@ -193,9 +195,7 @@
         const userNameEl = document.getElementById('userName');
         const userAvatarEl = document.getElementById('userAvatar');
         const userBioEl = document.getElementById('userBio');
-        // Note: userLocationEl, userCompanyEl, userBlogEl are no longer needed here for display,
-        // but the fetch function will still attempt to get them. This is fine, they just won't be used.
-        const userEmailLinkEl = document.getElementById('userEmailLink');
+        const userEmailLinkEl = document.getElementById('userEmailLink'); // Still used, but href is now static
         const projectsGridEl = document.getElementById('projectsGrid');
         const currentYearEl = document.getElementById('currentYear');
         const darkModeToggle = document.getElementById('darkModeToggle');
@@ -221,53 +221,46 @@
         function toggleDarkMode() {
             const isDark = htmlElement.classList.toggle('dark');
             localStorage.setItem('darkMode', isDark);
-            applyTheme(isDark); // Ensure toggles are synced
+            applyTheme(isDark);
         }
 
         darkModeToggle.addEventListener('change', toggleDarkMode);
         darkModeToggleMobile.addEventListener('change', toggleDarkMode);
 
-        // Load saved theme
         const savedDarkMode = localStorage.getItem('darkMode');
         if (savedDarkMode === 'true') {
             applyTheme(true);
         } else if (savedDarkMode === 'false') {
             applyTheme(false);
-        } else { // System preference
+        } else { 
             applyTheme(window.matchMedia('(prefers-color-scheme: dark)').matches);
         }
         
-        // Listen for system theme changes
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-            if (localStorage.getItem('darkMode') === null) { // Only if no user preference is set
+            if (localStorage.getItem('darkMode') === null) { 
                  applyTheme(e.matches);
             }
         });
-
 
         // --- Mobile Menu ---
         mobileMenuButton.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
         });
-        // Close mobile menu when a link is clicked
         mobileMenu.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
                 mobileMenu.classList.add('hidden');
             });
         });
 
-
-        // --- Smooth Scrolling & Active Nav Link ---
+        // --- Smooth Scrolling ---
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href');
                 const targetElement = document.querySelector(targetId);
                 if (targetElement) {
-                    // Calculate offset for fixed navbar
                     const navbarHeight = navbar.offsetHeight;
                     const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
-                    
                     window.scrollTo({
                         top: targetPosition,
                         behavior: 'smooth'
@@ -276,23 +269,18 @@
             });
         });
         
-
         // --- Intersection Observer for Section Animations ---
         const sections = document.querySelectorAll('.section');
         const observerOptions = {
-            root: null, // viewport
+            root: null,
             rootMargin: '0px',
-            threshold: 0.1 // 10% of the section is visible
+            threshold: 0.1 
         };
 
         const sectionObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
-                    // observer.unobserve(entry.target); // Optional: stop observing once visible
-                } else {
-                     // Optional: remove 'visible' if you want fade-out on scroll away
-                     // entry.target.classList.remove('visible');
                 }
             });
         }, observerOptions);
@@ -310,31 +298,25 @@
                 }
                 const data = await response.json();
 
-                // Populate Hero section
                 if (data.name) userNameEl.innerHTML = `Hi, I'm <span class="text-primary">${data.name}</span>`;
                 else userNameEl.innerHTML = `Hi, I'm <span class="text-primary">${data.login}</span>`;
 
                 if (data.avatar_url) userAvatarEl.src = data.avatar_url;
                 if (data.bio) userBioEl.textContent = data.bio;
                 else userBioEl.textContent = "A passionate developer exploring the world of code.";
-
-                // About section details (location, company, blog) are no longer displayed,
-                // but we still fetch them in case they are needed elsewhere or for future use.
-                // No need to select these elements if they are removed from HTML.
                 
-                if (data.email) {
-                    userEmailLinkEl.href = `mailto:${data.email}`;
-                } else {
-                    userEmailLinkEl.parentElement.nextElementSibling.textContent = "Email not publicly available on GitHub.";
-                }
+                // Email is now hardcoded in HTML, but we keep this for other profile info
+                // if (data.email) { 
+                //     userEmailLinkEl.href = `mailto:${data.email}`;
+                // } else {
+                //     // The note is removed from HTML, so no need to update it here.
+                // }
                 document.getElementById('githubProfileLink').href = data.html_url;
-
 
             } catch (error) {
                 console.error("Failed to fetch GitHub profile:", error);
-                userNameEl.textContent = "Wahhab Zendehdel"; // Fallback
+                userNameEl.textContent = "Wahhab Zendehdel"; 
                 userBioEl.textContent = "Error loading GitHub profile data.";
-                // No need to update location, company, blog text content if elements are removed
             }
         }
 
@@ -345,15 +327,21 @@
                  if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
-                const repos = await response.json();
-                projectsGridEl.innerHTML = ''; // Clear loading message
+                const allRepos = await response.json();
+                
+                const excludedRepoNames = [`${GITHUB_USERNAME}.github.io`, GITHUB_USERNAME];
+                const filteredRepos = allRepos.filter(repo => {
+                    return !repo.fork && !excludedRepoNames.includes(repo.name);
+                });
 
-                if (repos.length === 0) {
-                    projectsGridEl.innerHTML = '<p class="text-center col-span-full text-secondary">No public repositories found.</p>';
+                projectsGridEl.innerHTML = ''; 
+
+                if (filteredRepos.length === 0) {
+                    projectsGridEl.innerHTML = '<p class="text-center col-span-full text-secondary">No suitable public repositories found after filtering.</p>';
                     return;
                 }
 
-                repos.slice(0, 6).forEach(repo => { // Display up to 6 repos
+                filteredRepos.slice(0, 6).forEach(repo => { 
                     const projectCard = `
                         <div class="bg-card p-6 rounded-xl shadow-custom border border-custom transform hover:scale-105 transition-transform duration-300 flex flex-col justify-between">
                             <div>
@@ -381,6 +369,10 @@
             fetchGitHubProfile();
             fetchGitHubRepos();
             currentYearEl.textContent = new Date().getFullYear();
+            // Set email href directly as it's now static
+            if(userEmailLinkEl) { // Check if element exists, though it should
+                userEmailLinkEl.href = "mailto:Wahhabzendehdel@gmail.com";
+            }
         });
 
     </script>
