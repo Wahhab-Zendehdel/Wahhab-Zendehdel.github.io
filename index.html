@@ -71,43 +71,51 @@
     <!-- Navigation Bar -->
     <nav id="navbar" class="navbar-custom-bg backdrop-blur-md fixed w-full top-0 z-50 shadow-custom transition-colors duration-300">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <!-- Updated Navbar Brand with Home Icon -->
-            <a href="#" class="text-primary">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
-                </svg>
-            </a>
-            <div class="hidden md:flex space-x-4 items-center">
-                <a href="#hero" class="hover:text-primary transition-colors duration-300">Home</a>
-                <a href="#about" class="hover:text-primary transition-colors duration-300">About</a>
-                <a href="#projects" class="hover:text-primary transition-colors duration-300">Projects</a>
-                <a href="#contact" class="hover:text-primary transition-colors duration-300">Contact</a>
-                <!-- Dark Mode Toggle -->
-                <div class="flex items-center">
+            <!-- Left part: Icon and Text Links -->
+            <div class="flex items-center">
+                <a href="#hero" class="text-primary mr-6"> <!-- Link to top of page / hero, added margin-right -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+                    </svg>
+                </a>
+                <!-- Desktop Text Links -->
+                <div class="hidden md:flex space-x-4">
+                    <a href="#about" class="hover:text-primary transition-colors duration-300">About</a>
+                    <a href="#projects" class="hover:text-primary transition-colors duration-300">Projects</a>
+                    <a href="#contact" class="hover:text-primary transition-colors duration-300">Contact</a>
+                </div>
+            </div>
+
+            <!-- Right part: Toggles and Mobile Menu Button -->
+            <div class="flex items-center">
+                <!-- Desktop Theme Toggle -->
+                <div class="hidden md:flex items-center">
+                    <span class="mr-2 text-sm text-secondary">Mode:</span>
                     <input type="checkbox" id="darkModeToggle" class="toggle-checkbox hidden">
                     <label for="darkModeToggle" class="toggle-label flex items-center cursor-pointer w-11 h-6 rounded-full p-1 bg-gray-300 dark:bg-gray-600 transition-colors duration-300">
                         <span class="toggle-ball w-4 h-4 bg-white rounded-full shadow-md transform transition-transform duration-300"></span>
                     </label>
                 </div>
-            </div>
-            <div class="md:hidden flex items-center">
-                 <!-- Dark Mode Toggle for Mobile -->
-                <div class="flex items-center mr-4">
-                    <input type="checkbox" id="darkModeToggleMobile" class="toggle-checkbox hidden">
-                    <label for="darkModeToggleMobile" class="toggle-label flex items-center cursor-pointer w-11 h-6 rounded-full p-1 bg-gray-300 dark:bg-gray-600 transition-colors duration-300">
-                        <span class="toggle-ball w-4 h-4 bg-white rounded-full shadow-md transform transition-transform duration-300"></span>
-                    </label>
+
+                <!-- Mobile Controls: Theme Toggle + Hamburger -->
+                <div class="md:hidden flex items-center">
+                    <div class="flex items-center mr-3"> <!-- Adjusted margin for mobile toggle -->
+                        <span class="mr-2 text-sm text-secondary">Mode:</span>
+                        <input type="checkbox" id="darkModeToggleMobile" class="toggle-checkbox hidden">
+                        <label for="darkModeToggleMobile" class="toggle-label flex items-center cursor-pointer w-11 h-6 rounded-full p-1 bg-gray-300 dark:bg-gray-600 transition-colors duration-300">
+                            <span class="toggle-ball w-4 h-4 bg-white rounded-full shadow-md transform transition-transform duration-300"></span>
+                        </label>
+                    </div>
+                    <button id="mobileMenuButton" class="outline-none mobile-menu-button">
+                        <svg class="w-6 h-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                            <path d="M4 6h16M4 12h16m-7 6h7"></path>
+                        </svg>
+                    </button>
                 </div>
-                <button id="mobileMenuButton" class="outline-none mobile-menu-button">
-                    <svg class="w-6 h-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                        <path d="M4 6h16M4 12h16m-7 6h7"></path>
-                    </svg>
-                </button>
             </div>
         </div>
         <!-- Mobile Menu -->
         <div class="hidden mobile-menu md:hidden navbar-custom-bg transition-colors duration-300">
-            <a href="#hero" class="block py-2 px-4 text-sm hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-primary">Home</a>
             <a href="#about" class="block py-2 px-4 text-sm hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-primary">About</a>
             <a href="#projects" class="block py-2 px-4 text-sm hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-primary">Projects</a>
             <a href="#contact" class="block py-2 px-4 text-sm hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-primary">Contact</a>
@@ -151,7 +159,7 @@
         <div class="container mx-auto px-6">
             <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">My Projects</h2>
             <div class="w-20 h-1 bg-primary mx-auto mb-12"></div>
-            <div id="projectsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div id="projectsGrid" class="grid gap-8"> 
                 <div class="text-center col-span-full text-secondary">Loading projects...</div>
             </div>
         </div>
@@ -168,12 +176,10 @@
                     Feel free to reach out to me.
                 </p>
                 <div class="text-center">
-                    <!-- Updated Email Link -->
                     <a id="userEmailLink" href="mailto:Wahhabzendehdel@gmail.com" class="bg-primary text-white font-semibold py-3 px-8 rounded-lg hover:bg-opacity-80 transition duration-300 text-lg">
                         Email Me
                     </a>
                 </div>
-                 <!-- Removed note about fetching email -->
             </div>
         </div>
     </section>
@@ -181,7 +187,6 @@
     <!-- Footer -->
     <footer class="py-8 border-t border-custom">
         <div class="container mx-auto px-6 text-center text-secondary">
-            <!-- Updated Footer Text -->
             <p>&copy; <span id="currentYear"></span> Wahhab Zendehdel. Crafted with passion.</p>
         </div>
     </footer>
@@ -195,7 +200,7 @@
         const userNameEl = document.getElementById('userName');
         const userAvatarEl = document.getElementById('userAvatar');
         const userBioEl = document.getElementById('userBio');
-        const userEmailLinkEl = document.getElementById('userEmailLink'); // Still used, but href is now static
+        const userEmailLinkEl = document.getElementById('userEmailLink');
         const projectsGridEl = document.getElementById('projectsGrid');
         const currentYearEl = document.getElementById('currentYear');
         const darkModeToggle = document.getElementById('darkModeToggle');
@@ -256,7 +261,10 @@
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                const targetId = this.getAttribute('href');
+                let targetId = this.getAttribute('href');
+                if (targetId === "#") { // For the home icon link
+                    targetId = "#hero"; 
+                }
                 const targetElement = document.querySelector(targetId);
                 if (targetElement) {
                     const navbarHeight = navbar.offsetHeight;
@@ -265,6 +273,8 @@
                         top: targetPosition,
                         behavior: 'smooth'
                     });
+                } else if (targetId === "#hero") { 
+                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 }
             });
         });
@@ -305,12 +315,6 @@
                 if (data.bio) userBioEl.textContent = data.bio;
                 else userBioEl.textContent = "A passionate developer exploring the world of code.";
                 
-                // Email is now hardcoded in HTML, but we keep this for other profile info
-                // if (data.email) { 
-                //     userEmailLinkEl.href = `mailto:${data.email}`;
-                // } else {
-                //     // The note is removed from HTML, so no need to update it here.
-                // }
                 document.getElementById('githubProfileLink').href = data.html_url;
 
             } catch (error) {
@@ -334,14 +338,28 @@
                     return !repo.fork && !excludedRepoNames.includes(repo.name);
                 });
 
-                projectsGridEl.innerHTML = ''; 
+                const displayedRepos = filteredRepos.slice(0, 6);
+                const numDisplayed = displayedRepos.length;
 
-                if (filteredRepos.length === 0) {
+                projectsGridEl.innerHTML = ''; 
+                projectsGridEl.className = 'grid gap-8'; 
+
+                if (numDisplayed === 0) {
                     projectsGridEl.innerHTML = '<p class="text-center col-span-full text-secondary">No suitable public repositories found after filtering.</p>';
-                    return;
+                    projectsGridEl.classList.add('grid-cols-1'); 
+                } else if (numDisplayed === 1) {
+                    projectsGridEl.classList.add('grid-cols-1', 'justify-items-center');
+                } else if (numDisplayed === 2) {
+                    // For 2 items, md:grid-cols-2 will show them side by side.
+                    // To center them within the container, we can make the container itself narrower or use flex on parent.
+                    // For simplicity with grid, we'll let them take up the space.
+                    // If precise centering of the two items is needed, more complex CSS might be required or flexbox on projectsGridEl.
+                    projectsGridEl.classList.add('grid-cols-1', 'sm:grid-cols-2', 'lg:grid-cols-2', 'sm:max-w-2xl', 'lg:max-w-4xl', 'mx-auto');
+                } else { 
+                    projectsGridEl.classList.add('grid-cols-1', 'sm:grid-cols-2', 'lg:grid-cols-3');
                 }
 
-                filteredRepos.slice(0, 6).forEach(repo => { 
+                displayedRepos.forEach(repo => { 
                     const projectCard = `
                         <div class="bg-card p-6 rounded-xl shadow-custom border border-custom transform hover:scale-105 transition-transform duration-300 flex flex-col justify-between">
                             <div>
@@ -369,9 +387,12 @@
             fetchGitHubProfile();
             fetchGitHubRepos();
             currentYearEl.textContent = new Date().getFullYear();
-            // Set email href directly as it's now static
-            if(userEmailLinkEl) { // Check if element exists, though it should
+            if(userEmailLinkEl) {
                 userEmailLinkEl.href = "mailto:Wahhabzendehdel@gmail.com";
+            }
+            const homeIconLink = document.querySelector('nav a[href="#hero"]'); // Updated selector
+            if (homeIconLink) {
+                // It's already #hero, but this confirms smooth scroll will target it
             }
         });
 
