@@ -6,48 +6,38 @@
     <title>Wahhab Zendehdel - Portfolio</title>
     <!-- Link to the external CSS file -->
     <link rel="stylesheet" href="style.css">
-    <!-- Using a classic font from Google Fonts for the newspaper feel -->
+    <!-- Using a classic font from Google Fonts for the retro feel -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- Main window container -->
-    <div class="window">
-        <!-- Title bar of the window -->
-        <div class="title-bar">
-            <div class="title-bar-text">Wahhab_Zendehdel_Portfolio.exe</div>
-            <div class="title-bar-controls">
-                <button aria-label="Minimize"></button>
-                <button aria-label="Maximize"></button>
-                <button aria-label="Close"></button>
-            </div>
-        </div>
-        <!-- Content body of the window -->
-        <div class="window-body">
-            <!-- Navigation bar -->
-            <nav class="sunken-panel">
-                <a href="#hero" class="button">Home</a>
-                <a href="#about" class="button">About</a>
-                <a href="#projects" class="button">Projects</a>
-                <a href="#github-status" class="button">GitHub</a>
-                <a href="#contact" class="button">Contact</a>
-            </nav>
+    <!-- Main page container with the Win98 grey background and border -->
+    <div class="page-container">
+        <!-- Header with avatar and title -->
+        <header id="hero" class="main-header">
+             <img id="userAvatar" src="https://github.com/Wahhab-Zendehdel.png" alt="User Avatar" class="avatar">
+             <div>
+                <h1 id="userName">Hi, I'm Wahhab Zendehdel</h1>
+                <p id="userBio">Loading bio...</p>
+             </div>
+        </header>
 
-            <!-- Hero Section -->
-            <section id="hero" class="section">
-                <div class="text-center">
-                    <img id="userAvatar" src="https://github.com/Wahhab-Zendehdel.png" alt="User Avatar" class="avatar">
-                    <h1 id="userName" class="font-bold">Hi, I'm Wahhab Zendehdel</h1>
-                    <p id="userBio" class="text-lg">Loading bio...</p>
-                </div>
-            </section>
+        <!-- Navigation bar -->
+        <nav class="main-nav">
+            <a href="#about" class="button">About</a>
+            <a href="#projects" class="button">Projects</a>
+            <a href="#github-status" class="button">GitHub</a>
+            <a href="#contact" class="button">Contact</a>
+        </nav>
 
+        <!-- Main content area -->
+        <main class="main-content">
             <!-- About Section -->
             <section id="about" class="section">
                 <h2 class="section-title">About Me</h2>
-                <div class="sunken-panel content-box">
+                <div class="sunken-panel">
                     <p>
                         I'm a passionate developer with a knack for creating innovative and efficient solutions.
                         My journey in tech has been driven by a constant curiosity and a desire to learn and grow.
@@ -66,7 +56,7 @@
             <!-- Projects Section -->
             <section id="projects" class="section">
                 <h2 class="section-title">My Projects</h2>
-                <div id="projectsGrid" class="grid"> 
+                <div id="projectsGrid" class="grid sunken-panel"> 
                     <!-- Projects will be loaded here by script.js -->
                     <p>Loading projects...</p>
                 </div>
@@ -75,8 +65,8 @@
             <!-- GitHub Status Section -->
             <section id="github-status" class="section">
                 <h2 class="section-title">GitHub Status</h2>
-                 <div class="sunken-panel content-box text-center">
-                    <!-- GitHub stats image -->
+                 <div class="sunken-panel text-center">
+                    <!-- GitHub stats images -->
                     <img src="https://github-readme-stats.vercel.app/api?username=wahhab-zendehdel&show_icons=true&theme=graywhite&hide_border=true&title_color=000080&icon_color=000080&text_color=000000&bg_color=c0c0c0" alt="Wahhab Zendehdel's GitHub Stats">
                     <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=wahhab-zendehdel&layout=compact&theme=graywhite&hide_border=true&title_color=000080&icon_color=000080&text_color=000000&bg_color=c0c0c0" alt="Top Languages">
                 </div>
@@ -86,7 +76,7 @@
             <!-- Contact Section -->
             <section id="contact" class="section">
                 <h2 class="section-title">Get In Touch</h2>
-                 <div class="sunken-panel content-box text-center">
+                 <div class="sunken-panel text-center">
                     <p>
                         I'm always open to discussing new projects, creative ideas, or opportunities to be part of something amazing.
                     </p>
@@ -95,15 +85,15 @@
                     </a>
                 </div>
             </section>
-
-            <!-- Footer -->
-            <footer class="footer">
-                <p>&copy; <span id="currentYear"></span> Wahhab Zendehdel. All rights reserved.</p>
-            </footer>
-        </div>
+        </main>
+        
+        <!-- Footer -->
+        <footer class="main-footer">
+            <p>&copy; <span id="currentYear"></span> Wahhab Zendehdel. All rights reserved.</p>
+        </footer>
     </div>
 
-    <!-- Link to the external JavaScript file -->
+    <!-- The JavaScript file remains the same -->
     <script src="script.js"></script>
 </body>
 </html>
