@@ -22,13 +22,13 @@ const githubTopLangsImg = document.getElementById('github-top-langs-img');
  */
 const manualProjects = [
     {
-        name: "Vehicle Fuse Box Fault Detection",
+        name: "AI-Powered Fuse Box Integrity Checker",
         description: "Live detection of incorrect fuses in vehicle fuse boxes using Python and OpenCV.",
         githubLink: null,
         language: "Python"
     },
     {
-        name: "C# and SQL Accounting App",
+        name: "Professional Accounting for Windows",
         description: "A robust accounting application for Windows built with C# and SQL.",
         githubLink: null,
         language: "C#"
@@ -40,7 +40,7 @@ const manualProjects = [
         language: "Python"
     },
     {
-        name: "ASP.NET Library Manager",
+        name: "Efficient Library & Member Management",
         description: "A library management system developed with ASP.NET, C#, and SQL for efficient book and member tracking.",
         githubLink: null,
         language: "C#"
@@ -52,13 +52,13 @@ const manualProjects = [
         language: "Python"
     },
     {
-        name: "AI-Powered Battery Health Diagnosis",
+        name: "Multi-Model Battery Health Forecaster",
         description: "A user-friendly Gradio interface for loading and analyzing battery health data with over 10 different machine learning models.",
         githubLink: null,
         language: "Python"
     },
     {
-        name: "COVID-19 Cough Detection",
+        name: "ML-Based Cough Analysis for Covid-19 Detection",
         description: "A Python project utilizing machine learning to detect COVID-19 from the sound of a cough.",
         githubLink: null,
         language: "Python"
