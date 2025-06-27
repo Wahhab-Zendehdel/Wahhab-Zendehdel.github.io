@@ -181,7 +181,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between; /* Pushes footer to the bottom */
-    min-height: 220px; /* Ensures uniform card height */
+    min-height: 250px; /* Increased height for more space and uniformity */
     transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 .project-card:hover {
