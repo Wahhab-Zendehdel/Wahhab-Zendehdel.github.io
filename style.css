@@ -219,6 +219,7 @@ html.dark .button {
 .lang-python { background-color: #3572A5; }
 .lang-csharp { background-color: #178600; }
 .lang-javascript { background-color: #F7DF1E; color: #000; }
+.lang-lua { background-color: #2C2D72; }
 
 /* --- GitHub Section --- */
 #github-status img {
