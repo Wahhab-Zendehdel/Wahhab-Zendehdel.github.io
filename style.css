@@ -1,91 +1,63 @@
-/* General body styling */
+/* General body styling with the classic Win98 teal background */
 body {
-    background: #008080; /* Teal background color */
+    background: #008080;
     font-family: 'VT323', monospace; /* Pixelated font for a retro feel */
     font-size: 18px;
     color: #000000;
 }
 
-/* Main window container */
-.window {
-    max-width: 900px;
-    margin: 30px auto;
+/* Main page container with the grey background and 3D border */
+.page-container {
+    max-width: 960px;
+    margin: 20px auto;
     background: #c0c0c0; /* Classic grey */
     border-top: 2px solid #ffffff;
     border-left: 2px solid #ffffff;
-    border-right: 2px solid #000000;
-    border-bottom: 2px solid #000000;
-    box-shadow: 5px 5px 10px rgba(0,0,0,0.3);
+    border-right: 2px solid #808080; /* Dark grey for shadow */
+    border-bottom: 2px solid #808080;
+    padding: 20px;
+}
+
+/* Header section */
+.main-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #808080;
+    margin-bottom: 20px;
+}
+
+.main-header .avatar {
+    width: 100px;
+    height: 100px;
+    border: 2px solid #000;
+    background: #fff;
     padding: 3px;
 }
 
-/* Title bar styling */
-.title-bar {
-    background: linear-gradient(to right, #000080, #1084d0); /* Navy blue gradient */
-    color: #ffffff;
-    padding: 5px 8px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-weight: bold;
-    text-shadow: 1px 1px #000000;
+.main-header h1 {
+    font-size: 36px;
+    margin: 0;
 }
 
-.title-bar-text {
-    flex-grow: 1;
-}
-
-/* Window controls (minimize, maximize, close) */
-.title-bar-controls button {
-    width: 22px;
-    height: 20px;
-    margin-left: 3px;
-    border-top: 1px solid #ffffff;
-    border-left: 1px solid #ffffff;
-    border-right: 1px solid #000000;
-    border-bottom: 1px solid #000000;
-    background: #c0c0c0;
-    font-family: "Marlett", "Arial", sans-serif; /* Using a symbol font for icons */
-    font-size: 14px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.title-bar-controls button:active {
-    border-top: 1px solid #000000;
-    border-left: 1px solid #000000;
-    border-right: 1px solid #ffffff;
-    border-bottom: 1px solid #ffffff;
-}
-
-button[aria-label="Minimize"]::before { content: "0"; }
-button[aria-label="Maximize"]::before { content: "1"; }
-button[aria-label="Close"]::before { content: "r"; }
-
-
-/* Window body content area */
-.window-body {
-    padding: 15px;
-    text-align: center;
-}
-
-/* Sunken panel effect for containers */
-.sunken-panel {
-    border: 2px solid;
-    border-color: #808080 #ffffff #ffffff #808080;
-    background: #c0c0c0;
-    padding: 10px;
+.main-header p {
+    font-size: 20px;
+    margin: 5px 0 0;
 }
 
 /* Navigation bar */
-nav {
+.main-nav {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     flex-wrap: wrap;
     gap: 10px;
     margin-bottom: 20px;
-    padding: 15px;
+    padding: 10px;
+    border-top: 2px solid #ffffff;
+    border-left: 2px solid #ffffff;
+    border-right: 2px solid #808080;
+    border-bottom: 2px solid #808080;
 }
 
 /* General button styling */
@@ -109,12 +81,11 @@ nav {
     border-left: 2px solid #000000;
     border-right: 2px solid #ffffff;
     border-bottom: 2px solid #ffffff;
-    padding: 9px 14px 7px 16px; /* Nudge effect */
+    padding: 9px 14px 7px 16px; /* Nudge effect on click */
 }
 
-
-/* Section styling */
-.section {
+/* Main content area */
+.main-content .section {
     margin-bottom: 25px;
 }
 
@@ -123,40 +94,14 @@ nav {
     font-weight: bold;
     margin-bottom: 15px;
     text-align: left;
-    border-bottom: 2px solid #808080;
-    padding-bottom: 5px;
 }
 
-/* Avatar styling */
-.avatar {
-    width: 128px;
-    height: 128px;
-    border-radius: 50%;
-    border: 2px solid #000;
-    margin: 0 auto 20px;
-    display: block;
-    background: #ffffff;
-    padding: 4px;
-    box-shadow: 2px 2px 0px #808080;
-}
-
-/* Text alignment utility */
-.text-center {
-    text-align: center;
-}
-
-h1.font-bold {
-    font-size: 32px;
-    margin-bottom: 10px;
-}
-
-p.text-lg {
-    font-size: 20px;
-}
-
-.content-box {
+/* Sunken panel effect for content boxes */
+.sunken-panel {
+    border: 2px solid;
+    border-color: #808080 #ffffff #ffffff #808080;
+    padding: 15px;
     text-align: left;
-    padding: 20px;
     line-height: 1.6;
 }
 
@@ -175,7 +120,6 @@ p.text-lg {
     border-bottom: 2px solid #000000;
     padding: 15px;
     background: #c0c0c0;
-    text-align: left;
 }
 
 .project-card h3 {
@@ -194,10 +138,15 @@ p.text-lg {
 }
 
 /* Footer styling */
-.footer {
-    margin-top: 30px;
+.main-footer {
+    margin-top: 20px;
     padding-top: 15px;
     border-top: 2px solid #808080;
-    font-size: 14px;
+    font-size: 16px;
+    text-align: center;
+}
+
+/* Utility for centering text */
+.text-center {
     text-align: center;
 }
