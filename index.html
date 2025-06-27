@@ -6,37 +6,30 @@
     <title>Wahhab Zendehdel - Portfolio</title>
     <!-- Link to the external CSS file -->
     <link rel="stylesheet" href="style.css">
-    <!-- Using a clean, modern font from Google Fonts -->
+    <!-- Using the specified serif fonts for the Academia theme -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <!-- Main page container -->
     <div class="page-container">
-        <!-- Header with avatar, title, and dark mode toggle -->
+        <!-- Header -->
         <header id="hero" class="main-header">
              <img id="userAvatar" src="https://github.com/Wahhab-Zendehdel.png" alt="User Avatar" class="avatar">
              <div class="header-content">
-                <h1 id="userName">Hi, I'm Wahhab Zendehdel</h1>
+                <h1 id="userName">Wahhab Zendehdel</h1>
                 <p id="userBio">Loading bio...</p>
-             </div>
-             <!-- Dark Mode Toggle Switch -->
-             <div class="theme-switcher">
-                <input type="checkbox" id="darkModeToggle" class="toggle-checkbox">
-                <label for="darkModeToggle" class="toggle-label">
-                    <span class="toggle-ball"></span>
-                </label>
              </div>
         </header>
 
         <!-- Navigation bar -->
         <nav class="main-nav">
-            <a href="#about" class="button">About</a>
-            <a href="#projects" class="button">Projects</a>
-            <a href="#github-status" class="button">GitHub</a>
-            <a href="#contact" class="button">Contact</a>
+            <a href="#about">About</a>
+            <a href="#projects">Projects</a>
+            <a href="#github-status">GitHub</a>
+            <a href="#contact">Contact</a>
         </nav>
 
         <!-- Main content area -->
@@ -46,24 +39,18 @@
                 <h2 class="section-title">About Me</h2>
                 <div class="content-panel">
                     <p>
-                        I'm a passionate developer with a knack for creating innovative and efficient solutions.
-                        My journey in tech has been driven by a constant curiosity and a desire to learn and grow.
-                        I enjoy tackling complex problems and turning ideas into reality.
-                        This portfolio showcases some of the projects I've worked on.
-                        Feel free to explore and reach out if you'd like to connect!
+                        I'm a passionate developer with a knack for creating innovative and efficient solutions. My journey in tech has been driven by a constant curiosity and a desire to learn and grow. I enjoy tackling complex problems and turning ideas into reality. This portfolio showcases some of the projects I've worked on.
                     </p>
-                    <div class="text-center" style="margin-top: 20px;">
-                        <a id="githubProfileLink" href="https://github.com/Wahhab-Zendehdel" target="_blank" rel="noopener noreferrer" class="button">
-                            View GitHub Profile
-                        </a>
-                    </div>
+                    <a id="githubProfileLink" href="https://github.com/Wahhab-Zendehdel" target="_blank" rel="noopener noreferrer" class="button">
+                        View GitHub Profile
+                    </a>
                 </div>
             </section>
 
             <!-- Projects Section -->
             <section id="projects" class="section">
-                <h2 class="section-title">My Projects</h2>
-                <div id="projectsGrid" class="grid content-panel"> 
+                <h2 class="section-title">Projects</h2>
+                <div id="projectsGrid" class="grid-container"> 
                     <!-- Projects will be loaded here by script.js -->
                     <p>Loading projects...</p>
                 </div>
@@ -72,18 +59,17 @@
             <!-- GitHub Status Section -->
             <section id="github-status" class="section">
                 <h2 class="section-title">GitHub Status</h2>
-                 <div class="content-panel text-center">
+                 <div class="content-panel">
                     <!-- GitHub stats images -->
-                    <img id="github-stats-img" src="https://github-readme-stats.vercel.app/api?username=wahhab-zendehdel&show_icons=true&theme=light&hide_border=true&title_color=0056b3&icon_color=0056b3&text_color=333&bg_color=f8f9fa" alt="Wahhab Zendehdel's GitHub Stats">
-                    <img id="github-top-langs-img" src="https://github-readme-stats.vercel.app/api/top-langs/?username=wahhab-zendehdel&layout=compact&theme=light&hide_border=true&title_color=0056b3&icon_color=0056b3&text_color=333&bg_color=f8f9fa" alt="Top Languages">
+                    <img id="github-stats-img" src="https://github-readme-stats.vercel.app/api?username=wahhab-zendehdel&show_icons=true" alt="Wahhab Zendehdel's GitHub Stats">
+                    <img id="github-top-langs-img" src="https://github-readme-stats.vercel.app/api/top-langs/?username=wahhab-zendehdel&layout=compact" alt="Top Languages">
                 </div>
             </section>
-
 
             <!-- Contact Section -->
             <section id="contact" class="section">
                 <h2 class="section-title">Get In Touch</h2>
-                 <div class="content-panel text-center">
+                 <div class="content-panel">
                     <p>
                         I'm always open to discussing new projects, creative ideas, or opportunities to be part of something amazing.
                     </p>
@@ -96,7 +82,7 @@
         
         <!-- Footer -->
         <footer class="main-footer">
-            <p>&copy; <span id="currentYear"></span> Wahhab Zendehdel. All rights reserved.</p>
+            <p>&copy; <span id="currentYear"></span> Wahhab Zendehdel</p>
         </footer>
     </div>
 

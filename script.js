@@ -1,6 +1,6 @@
 /**
  * @file script.js
- * @description Handles dynamic content and interactivity for the portfolio page, including fetching projects from GitHub.
+ * @description Handles dynamic content for the portfolio page, including fetching projects from GitHub.
  */
 
 // --- CONSTANTS ---
@@ -14,24 +14,21 @@ const projectsGridEl = document.getElementById('projectsGrid');
 const currentYearEl = document.getElementById('currentYear');
 const userNameEl = document.getElementById('userName');
 const userAvatarEl = document.getElementById('userAvatar');
-const darkModeToggle = document.getElementById('darkModeToggle');
 const githubStatsImg = document.getElementById('github-stats-img');
 const githubTopLangsImg = document.getElementById('github-top-langs-img');
-const htmlElement = document.documentElement;
 
 /**
  * @description A list of projects to feature that do not have public GitHub repositories.
- * These will be displayed alongside the fetched repositories.
  */
 const manualProjects = [
     {
         name: "Vehicle Fuse Box Fault Detection",
         description: "Live detection of incorrect fuses in vehicle fuse boxes using Python and OpenCV.",
-        githubLink: null, // No public GitHub link
+        githubLink: null,
         language: "Python"
     },
     {
-        name: "Accounting App",
+        name: "C# and SQL Accounting App",
         description: "A robust accounting application for Windows built with C# and SQL.",
         githubLink: null,
         language: "C#"
@@ -43,7 +40,7 @@ const manualProjects = [
         language: "Python"
     },
     {
-        name: "Library Manager",
+        name: "ASP.NET Library Manager",
         description: "A library management system developed with ASP.NET, C#, and SQL for efficient book and member tracking.",
         githubLink: null,
         language: "C#"
@@ -71,34 +68,25 @@ const manualProjects = [
 // --- FUNCTIONS ---
 
 /**
- * Applies the selected theme (light/dark) to the page.
- * @param {boolean} isDark - True if dark mode should be enabled.
+ * Updates the GitHub stats images to match the Classic Academia theme.
  */
-function applyTheme(isDark) {
-    htmlElement.classList.toggle('dark', isDark);
-    if(darkModeToggle) darkModeToggle.checked = isDark;
-    
-    // Update GitHub stats images theme
-    const theme = isDark ? 'dark' : 'light';
-    const bgColor = isDark ? '1d2a3a' : 'f8f9fa';
-    const textColor = isDark ? 'c9d1d9' : '333';
-    const titleColor = isDark ? '58a6ff' : '0056b3';
-    
+function setAcademiaThemeForStats() {
+    // Parameters to match the Academia theme: cream background, navy and maroon text/icons
+    const themeParams = [
+        'bg_color=fdf6e3',
+        'border_color=001f3f',
+        'title_color=001f3f',
+        'icon_color=4a0404',
+        'text_color=4a0404',
+        'hide_border=false'
+    ].join('&');
+
     if (githubStatsImg) {
-        githubStatsImg.src = `https://github-readme-stats.vercel.app/api?username=${GITHUB_USERNAME}&show_icons=true&theme=${theme}&hide_border=true&title_color=${titleColor}&icon_color=${titleColor}&text_color=${textColor}&bg_color=${bgColor}`;
+        githubStatsImg.src = `https://github-readme-stats.vercel.app/api?username=${GITHUB_USERNAME}&show_icons=true&${themeParams}`;
     }
     if (githubTopLangsImg) {
-        githubTopLangsImg.src = `https://github-readme-stats.vercel.app/api/top-langs/?username=${GITHUB_USERNAME}&layout=compact&theme=${theme}&hide_border=true&title_color=${titleColor}&icon_color=${titleColor}&text_color=${textColor}&bg_color=${bgColor}`;
+        githubTopLangsImg.src = `https://github-readme-stats.vercel.app/api/top-langs/?username=${GITHUB_USERNAME}&layout=compact&${themeParams}`;
     }
-}
-
-/**
- * Toggles the theme between light and dark mode and saves the preference.
- */
-function toggleDarkMode() {
-    const isDark = !htmlElement.classList.contains('dark');
-    localStorage.setItem('darkMode', isDark);
-    applyTheme(isDark);
 }
 
 /**
@@ -125,34 +113,30 @@ async function fetchGitHubProfile() {
  */
 async function fetchAndDisplayProjects() {
     if (!projectsGridEl) return;
-    projectsGridEl.innerHTML = '<p>Loading projects...</p>';
+    projectsGridEl.innerHTML = '<p style="text-align: center;">Loading projects...</p>';
     try {
         const response = await fetch(GITHUB_API_REPOS_URL);
         if (!response.ok) throw new Error(`Network error: ${response.statusText}`);
         
         let repos = await response.json();
         
-        // Repositories to exclude from the fetched list
         const excludedRepos = ['Wahhab-Zendehdel.github.io', 'Wahhab-Zendehdel'];
 
-        // Map fetched repos to a standard project format, filtering out excluded and forked repos
         let githubProjects = repos
             .filter(repo => !repo.fork && !excludedRepos.includes(repo.name))
             .map(repo => ({
-                name: repo.name.replace(/-/g, ' ').replace(/_/g, ' '), // Replace hyphens and underscores for readability
+                name: repo.name.replace(/-/g, ' ').replace(/_/g, ' '),
                 description: repo.description || 'No description available.',
                 githubLink: repo.html_url,
                 language: repo.language || 'N/A'
             }));
 
-        // Combine the manually defined projects with the fetched GitHub projects
         const allProjects = [...manualProjects, ...githubProjects];
-
         displayProjects(allProjects);
 
     } catch (error) {
         console.error("Failed to fetch GitHub repositories:", error);
-        projectsGridEl.innerHTML = '<p class="error">Error loading projects from GitHub. Please try again later.</p>';
+        projectsGridEl.innerHTML = '<p class="error" style="text-align: center;">Error loading projects from GitHub.</p>';
     }
 }
 
@@ -172,23 +156,17 @@ function displayProjects(projects) {
     projects.forEach(project => {
         const projectCard = document.createElement('div');
         projectCard.className = 'project-card';
-        // Add a class for the specific language for styling
-        const langClass = `lang-${(project.language || 'na').toLowerCase().replace('#', 'sharp')}`;
 
-        // Conditionally create the GitHub link button only if a link exists
         const linkButton = project.githubLink ?
-            `<a href="${project.githubLink}" target="_blank" rel="noopener noreferrer" class="button">
-                View on GitHub
-            </a>` :
-            '';
+            `<a href="${project.githubLink}" target="_blank" rel="noopener noreferrer" class="button">View on GitHub</a>` : '';
 
         projectCard.innerHTML = `
             <div class="card-content">
-                <h3 class="project-name">${project.name}</h3>
+                <h3>${project.name}</h3>
                 <p>${project.description}</p>
             </div>
             <div class="card-footer">
-                <span class="language-tag ${langClass}">${project.language}</span>
+                <span class="language-tag">${project.language}</span>
                 ${linkButton}
             </div>
         `;
@@ -207,23 +185,8 @@ function setFooterYear() {
 
 // --- INITIALIZATION ---
 document.addEventListener('DOMContentLoaded', () => {
-    // Event Listeners
-    if (darkModeToggle) {
-        darkModeToggle.addEventListener('change', toggleDarkMode);
-    }
-
-    // Initial setup calls
     fetchGitHubProfile();
-    fetchAndDisplayProjects(); // Fetch and display projects on load
+    fetchAndDisplayProjects();
     setFooterYear();
-
-    // Check for saved theme preference
-    const savedDarkMode = localStorage.getItem('darkMode');
-    if (savedDarkMode !== null) {
-        applyTheme(savedDarkMode === 'true');
-    } else {
-        // Or use system preference
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        applyTheme(prefersDark);
-    }
+    setAcademiaThemeForStats();
 });
