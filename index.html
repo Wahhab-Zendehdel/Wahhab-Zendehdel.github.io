@@ -6,21 +6,28 @@
     <title>Wahhab Zendehdel - Portfolio</title>
     <!-- Link to the external CSS file -->
     <link rel="stylesheet" href="style.css">
-    <!-- Using a classic font from Google Fonts for the retro feel -->
+    <!-- Using a clean, modern font from Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- Main page container with the Win98 grey background and border -->
+    <!-- Main page container -->
     <div class="page-container">
-        <!-- Header with avatar and title -->
+        <!-- Header with avatar, title, and dark mode toggle -->
         <header id="hero" class="main-header">
              <img id="userAvatar" src="https://github.com/Wahhab-Zendehdel.png" alt="User Avatar" class="avatar">
-             <div>
+             <div class="header-content">
                 <h1 id="userName">Hi, I'm Wahhab Zendehdel</h1>
                 <p id="userBio">Loading bio...</p>
+             </div>
+             <!-- Dark Mode Toggle Switch -->
+             <div class="theme-switcher">
+                <input type="checkbox" id="darkModeToggle" class="toggle-checkbox">
+                <label for="darkModeToggle" class="toggle-label">
+                    <span class="toggle-ball"></span>
+                </label>
              </div>
         </header>
 
@@ -37,7 +44,7 @@
             <!-- About Section -->
             <section id="about" class="section">
                 <h2 class="section-title">About Me</h2>
-                <div class="sunken-panel">
+                <div class="content-panel">
                     <p>
                         I'm a passionate developer with a knack for creating innovative and efficient solutions.
                         My journey in tech has been driven by a constant curiosity and a desire to learn and grow.
@@ -56,7 +63,7 @@
             <!-- Projects Section -->
             <section id="projects" class="section">
                 <h2 class="section-title">My Projects</h2>
-                <div id="projectsGrid" class="grid sunken-panel"> 
+                <div id="projectsGrid" class="grid content-panel"> 
                     <!-- Projects will be loaded here by script.js -->
                     <p>Loading projects...</p>
                 </div>
@@ -65,10 +72,10 @@
             <!-- GitHub Status Section -->
             <section id="github-status" class="section">
                 <h2 class="section-title">GitHub Status</h2>
-                 <div class="sunken-panel text-center">
+                 <div class="content-panel text-center">
                     <!-- GitHub stats images -->
-                    <img src="https://github-readme-stats.vercel.app/api?username=wahhab-zendehdel&show_icons=true&theme=graywhite&hide_border=true&title_color=000080&icon_color=000080&text_color=000000&bg_color=c0c0c0" alt="Wahhab Zendehdel's GitHub Stats">
-                    <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=wahhab-zendehdel&layout=compact&theme=graywhite&hide_border=true&title_color=000080&icon_color=000080&text_color=000000&bg_color=c0c0c0" alt="Top Languages">
+                    <img id="github-stats-img" src="https://github-readme-stats.vercel.app/api?username=wahhab-zendehdel&show_icons=true&theme=light&hide_border=true&title_color=0056b3&icon_color=0056b3&text_color=333&bg_color=f8f9fa" alt="Wahhab Zendehdel's GitHub Stats">
+                    <img id="github-top-langs-img" src="https://github-readme-stats.vercel.app/api/top-langs/?username=wahhab-zendehdel&layout=compact&theme=light&hide_border=true&title_color=0056b3&icon_color=0056b3&text_color=333&bg_color=f8f9fa" alt="Top Languages">
                 </div>
             </section>
 
@@ -76,7 +83,7 @@
             <!-- Contact Section -->
             <section id="contact" class="section">
                 <h2 class="section-title">Get In Touch</h2>
-                 <div class="sunken-panel text-center">
+                 <div class="content-panel text-center">
                     <p>
                         I'm always open to discussing new projects, creative ideas, or opportunities to be part of something amazing.
                     </p>
@@ -93,7 +100,7 @@
         </footer>
     </div>
 
-    <!-- The JavaScript file remains the same -->
+    <!-- The JavaScript file -->
     <script src="script.js"></script>
 </body>
 </html>
