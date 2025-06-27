@@ -57,6 +57,16 @@ const projects = [{
     description: "A Python project utilizing machine learning to detect COVID-19 from the sound of a cough.",
     githubLink: "https://github.com/Wahhab-Zendehdel/detect-covid-19-via-cough-voice",
     language: "Python"
+}, {
+    name: "FC-Calculator",
+    description: "A simple GUI for a flight controller calculator, built with Python.",
+    githubLink: "https://github.com/Wahhab-Zendehdel/FC-Calculator",
+    language: "Python"
+}, {
+    name: "Attack Optimizer Algorithm (AOA)",
+    description: "Python implementation of the Attack-Optimizer-Algorithm for optimization tasks.",
+    githubLink: "https://github.com/Wahhab-Zendehdel/AOA-python",
+    language: "Python"
 }];
 
 // --- FUNCTIONS ---
@@ -131,14 +141,16 @@ function displayProjects() {
 
         projectCard.innerHTML = `
             <div class="card-content">
-                <span class="language-tag ${langClass}">${project.language}</span>
                 <h3>${project.name}</h3>
                 <p>${project.description}</p>
             </div>
             <div class="card-footer">
-                <a href="${project.githubLink}" target="_blank" rel="noopener noreferrer" class="button">
-                    View on GitHub
-                </a>
+                <span class="language-tag ${langClass}">${project.language}</span>
+                ${project.githubLink && project.githubLink !== "#" ? 
+                    `<a href="${project.githubLink}" target="_blank" rel="noopener noreferrer" class="button">
+                        View on GitHub
+                    </a>` : 
+                    ''}
             </div>
         `;
         projectsGridEl.appendChild(projectCard);
