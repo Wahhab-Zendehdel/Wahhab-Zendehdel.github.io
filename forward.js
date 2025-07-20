@@ -1,39 +1,33 @@
 /**
  * @file forward.js
- * @description Handles the forwarding logic for the forward.html page.
+ * @description Handles displaying the submitted URL.
  */
 
 // --- CONSTANTS ---
 const URL_PARAM = 'url';
-const FORWARD_DELAY = 3000; // 3 seconds
 
 // --- DOM ELEMENTS ---
 const forwardUrlEl = document.getElementById('forward-url');
 
 /**
  * @description Gets the URL from the query string.
- * @returns {string|null} The URL to forward to, or null if not found.
+ * @returns {string|null} The URL to display, or null if not found.
  */
-function getForwardUrl() {
+function getDisplayUrl() {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get(URL_PARAM);
 }
 
 /**
- * @description Displays the forward URL and redirects the user.
+ * @description Displays the URL.
  */
-function handleForward() {
-    const forwardUrl = getForwardUrl();
+function displayUrl() {
+    const displayUrl = getDisplayUrl();
 
-    if (forwardUrl) {
+    if (displayUrl) {
         if (forwardUrlEl) {
-            forwardUrlEl.textContent = forwardUrl;
-            forwardUrlEl.setAttribute('href', forwardUrl);
+            forwardUrlEl.textContent = displayUrl;
         }
-
-        setTimeout(() => {
-            window.location.href = forwardUrl;
-        }, FORWARD_DELAY);
     } else {
         if (forwardUrlEl) {
             forwardUrlEl.textContent = 'No URL provided.';
@@ -43,5 +37,5 @@ function handleForward() {
 
 // --- INITIALIZATION ---
 document.addEventListener('DOMContentLoaded', () => {
-    handleForward();
+    displayUrl();
 });
