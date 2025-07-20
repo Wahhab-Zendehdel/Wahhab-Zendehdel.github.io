@@ -1,0 +1,44 @@
+/* --- Classic Academia Theme --- */
+
+/* --- Color & Font Variables --- */
+:root {
+    --color-cream: #fdf6e3;
+    --color-maroon: #4a0404;
+    --color-navy: #001f3f;
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Lora', serif;
+}
+
+/* --- Base & Reset --- */
+body {
+    background-color: var(--color-cream);
+    font-family: var(--font-body);
+    font-size: 18px;
+    color: var(--color-maroon);
+    margin: 0;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* --- Main Layout --- */
+.page-container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 40px;
+    text-align: center;
+}
+
+.content-panel h1 {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.2;
+    color: var(--color-navy);
+}
+
+#forward-url {
+    font-weight: bold;
+    color: var(--color-navy);
+}
