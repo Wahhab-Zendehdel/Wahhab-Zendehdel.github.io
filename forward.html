@@ -3,14 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Submitted URL</title>
+    <title>Forward a URL</title>
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="forward.css">
 </head>
 <body>
     <div class="page-container">
         <div class="content-panel">
-            <h1>Submitted URL</h1>
-            <p>The URL you submitted is:</p>
+            <h1>Forward a URL</h1>
+            <form id="forward-form">
+                <input type="text" id="url-input" placeholder="Enter a URL" />
+                <button type="submit" class="button">Submit</button>
+            </form>
+            <p>The submitted URL is:</p>
             <p id="forward-url"></p>
         </div>
     </div>

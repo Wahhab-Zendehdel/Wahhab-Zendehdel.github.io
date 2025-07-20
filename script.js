@@ -183,28 +183,10 @@ function setFooterYear() {
     }
 }
 
-/**
- * Handles the forward form submission.
- * @param {Event} event - The form submission event.
- */
-function handleForwardFormSubmit(event) {
-    event.preventDefault();
-    const urlInput = document.getElementById('url-input');
-    const url = urlInput.value;
-    if (url) {
-        window.open(`forward.html?url=${encodeURIComponent(url)}`, '_blank');
-    }
-}
-
 // --- INITIALIZATION ---
 document.addEventListener('DOMContentLoaded', () => {
     fetchGitHubProfile();
     fetchAndDisplayProjects();
     setFooterYear();
     setAcademiaThemeForStats();
-
-    const forwardForm = document.getElementById('forward-form');
-    if (forwardForm) {
-        forwardForm.addEventListener('submit', handleForwardFormSubmit);
-    }
 });

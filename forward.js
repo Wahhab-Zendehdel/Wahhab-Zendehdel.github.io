@@ -1,41 +1,38 @@
 /**
  * @file forward.js
- * @description Handles displaying the submitted URL.
+ * @description Handles form submission and displaying the submitted URL.
  */
 
-// --- CONSTANTS ---
-const URL_PARAM = 'url';
-
 // --- DOM ELEMENTS ---
+const forwardForm = document.getElementById('forward-form');
+const urlInput = document.getElementById('url-input');
 const forwardUrlEl = document.getElementById('forward-url');
 
 /**
- * @description Gets the URL from the query string.
- * @returns {string|null} The URL to display, or null if not found.
+ * @description Displays the URL.
+ * @param {string} url - The URL to display.
  */
-function getDisplayUrl() {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get(URL_PARAM);
+function displayUrl(url) {
+    if (forwardUrlEl) {
+        forwardUrlEl.textContent = url;
+    }
 }
 
 /**
- * @description Displays the URL.
+ * @description Handles the form submission.
+ * @param {Event} event - The form submission event.
  */
-function displayUrl() {
-    const displayUrl = getDisplayUrl();
-
-    if (displayUrl) {
-        if (forwardUrlEl) {
-            forwardUrlEl.textContent = displayUrl;
-        }
-    } else {
-        if (forwardUrlEl) {
-            forwardUrlEl.textContent = 'No URL provided.';
-        }
+function handleForwardFormSubmit(event) {
+    event.preventDefault();
+    const url = urlInput.value;
+    if (url) {
+        displayUrl(url);
     }
 }
 
 // --- INITIALIZATION ---
 document.addEventListener('DOMContentLoaded', () => {
-    displayUrl();
+    if (forwardForm) {
+        forwardForm.addEventListener('submit', handleForwardFormSubmit);
+    }
 });
