@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salon Palette Explorer</title>
+    <style>
+        :root {
+            color-scheme: light dark;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #f3f4f6;
+            color: #111827;
+            line-height: 1.5;
+        }
+
+        .page {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem 4rem;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 3vw, 2.75rem);
+            margin-bottom: 0.25rem;
+            color: #111827;
+        }
+
+        .lead {
+            margin-bottom: 2rem;
+            color: #4b5563;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--card-bg, #fff);
+            border-radius: 1.25rem;
+            padding: 1.5rem;
+            box-shadow: 0 20px 35px -25px rgba(15, 23, 42, 0.4);
+            border: 1px solid var(--card-border, #e5e7eb);
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            color: var(--text-primary, #0f172a);
+        }
+
+        .card h2 {
+            font-size: 1.25rem;
+            margin: 0;
+            color: inherit;
+        }
+
+        .palette {
+            display: grid;
+            gap: 0.5rem;
+        }
+
+        .swatch-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+            color: inherit;
+        }
+
+        .label {
+            font-weight: 600;
+            color: var(--text-secondary, #374151);
+        }
+
+        .value {
+            font-family: "Roboto Mono", Consolas, monospace;
+            font-size: 0.85rem;
+            color: var(--text-muted, #6b7280);
+        }
+
+        .swatch {
+            flex-shrink: 0;
+            width: 52px;
+            height: 32px;
+            border-radius: 999px;
+            border: 1px solid rgba(15, 23, 42, 0.15);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: #0f172a;
+                color: #e2e8f0;
+            }
+
+            .card {
+                background: var(--card-bg, #111827);
+                border-color: var(--card-border, #1f2937);
+                color: var(--text-primary, #f8fafc);
+            }
+
+            .label {
+                color: var(--text-secondary, #cbd5f5);
+            }
+
+            .value {
+                color: var(--text-muted, #94a3b8);
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="page">
+        <h1>Salon Palette Explorer</h1>
+        <p class="lead">Ten curated palettes designed for the salon booking experience. Each card shows the key colors you can plug into your Tailwind config or CSS variables.</p>
+
+        <section class="grid">
+            <!-- Iris Glow -->
+            <article class="card" style="--card-bg:#FFFFFF; --card-border:#E5E7EB; --text-primary:#111827; --text-secondary:#4B5563; --text-muted:#6B7280;">
+                <h2>Iris Glow</h2>
+                <div class="palette">
+                    <div class="swatch-row">
+                        <span class="label">Primary</span>
+                        <span class="value">#8B5CF6</span>
+                        <span class="swatch" style="background:#8B5CF6;"></span>
+                    </div>
+                    <div class="swatch-row">
+                        <span class="label">Secondary</span>
+                        <span class="value">#F97316</span>
+                        <span class="swatch" style="background:#F97316;"></span>
+                    </div>
+                    <div class="swatch-row">
+                        <span class="label">Accent</span>
+                        <span class="value">#10B981</span>
+                        <span class="swatch" style="background:#10B981;"></span>
+                    </div>
+                    <div class="swatch-row">
+                        <span class="label">Surface</span>
+                        <span class="value">#FFFFFF</span>
+                        <span class="swatch" style="background:#FFFFFF;"></span>
+                    </div>
+                    <div class="swatch-row">
+                        <span class="label">Background</span>
+                        <span class="value">#F3F4F6</span>
+                        <span class="swatch" style="background:#F3F4F6;"></span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Rose Sunrise -->
+            <article class="card" style="--card-bg:#FFF7ED; --card-border:#FED7AA; --text-primary:#1F2937; --text-secondary:#6B7280; --text-muted:#9CA3AF;">
+                <h2>Rose Sunrise</h2>
+                <div class="palette">
+                    <div class="swatch-row">
+                        <span class="label">Primary</span>
+                        <span class="value">#EC4899</span>
+                        <span class="swatch" style="background:#EC4899;"></span>
+                    </div>
+                    <div class="swatch-row">
+                        <span class="label">Secondary</span>
+                        <span class="value">#FBBF24</span>
+                        <span class="swatch" style="background:#FBBF24;"></span>
+                    </div>
+                    <div class="swatch-row">
+                        <span class="label">Accent</span>
+                        <span class="value">#F97316</span>
+                        <span class="swatch" style="background:#F97316;"></span>
+                    </div>
+                    <div class="swatch-row">
+                        <span class="label">Surface</span>
+                        <span class="value">#FFF7ED</span>
+                        <span class="swatch" style="background:#FFF7ED;"></span>
+                    </div>
+                    <div class="swatch-row">
+                        <span class="label">Background</span>
+                        <span class="value">#FFF1F2</span>
+                        <span class="swatch" style="background:#FFF1F2;"></span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Velvet Amber -->
+            <article class="card" style="--card-bg:#FFFBEB; --card-border:#FDE68A; --text-primary:#1E1B4B; --text-secondary:#4338CA; --text-muted:#6D28D9;">
+                <h2>Velvet Amber</h2>
+                <div class="palette">
+                    <div class="swatch-row">
+                        <span class="label">Primary</span>
+                        <span class="value">#7C3AED</span>
+                        <span class="swatch" style="background:#7C3AED;"></span>
+                    </div>
+                    <div class="swatch-row">
+                        <span class="label">Secondary</span>
+                        <span class="value">#F59E0B</span>
+                        <span class="swatch" style="background:#F59E0B;"></span>
+                    </div>
+                    <div class="swatch-row">
+                        <span class="label">Accent</span>
+                        <span class="value">#FB7185</span>
+                        <span class="swatch" style="background:#FB7185;"></span>
+                    </div>
+                    <div class="swatch-row">
+                        <span class="label">Surface</span>
+                        <span class="value">#FFFBEB</span>
+                        <span class="swatch" style="background:#FFFBEB;"></span>
+                    </div>
+                    <div class="swatch-row">
+                        <span class="label">Background</span>
+                        <span class="value">#F5F3FF</span>
+                        <span class="swatch" style="background:#F5F3FF;"></span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Mint Bouquet -->
+            <article class="card" style="--card-bg:#ECFEFF; --card-border:#A7F3D0; --text-primary:#0F172A; --text-secondary:#475569; --text-muted:#64748B;">
+                <h2>Mint Bouquet</h2>
+                <div class="palette">
+                    <div class="swatch-row">
+                        <span class="label">Primary</span>
+                        <span class="value">#14B8A6</span>
+                        <span class="swatch" style="background:#14B8A6;"></span>
+                    </div>
+                    <div class="swatch-row">
+                        <span class="label">Secondary</span>
+                        <span class="value">#A855F7</span>
+                        <span class="swatch" style="background:#A855F7;"></span>
+                    </div>
+                    <div class="swatch-row">
+                        <span class="label">Accent</span>
+                        <span class="value">#FDE047</span>
+                        <span class="swatch" style="background:#FDE047;"></span>
+                    </div>
+                    <div class="swatch-row">
+                        <span class="label">Surface</span>
+                        <span class="value">#ECFEFF</span>
+                        <span class="swatch" style="background:#ECFEFF;"></span>
+                    </div>
+                    <div class="swatch-row">
+                        <span class="label">Background</span>
+                        <span class="value">#F7FEFF</span>
+                        <span class="swatch" style="background:#F7FEFF;"></span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Amber Noir -->
+            <article class="card" style="--card-bg:#1F2937; --card-border:#0F172A; --text-primary:#F9FAFB; --text-secondary:#E5E7EB; --text-muted:#9CA3AF;">
+                <h2>Amber Noir</h2>
+                <div class="palette">
+                    <div class="swatch-row">
+                        <span class="label">Primary</span>
+                        <span class="value">#D97706</span>
+                        <span class="swatch" style="background:#D97706;"></span>
+                    </div>
+                    <div class="swatch-row">
+                        <span class="label">Secondary</span>
+                        <span class="value">#7C3AED</span>
+                        <span class="swatch" style="background:#7C3AED;"></span>
+                    </div>
+                    <div class="swatch-row">
+                        <span class="label">Accent</span>
+                        <span class="value">#FCD34D</span>
+                        <span class="swatch" style="background:#FCD34D;"></span>
+                    </div>
+                    <div class="swatch-row">
+                        <span class="label">Surface</span>
+                        <span class="value">#1F2937</span>
+                        <span class="swatch" style="background:#1F2937;"></span>
+                    </div>
+                    <div class="swatch-row">
+                        <span class="label">Background</span>
+                        <span class="value">#111827</span>
+                        <span class="swatch" style="background:#111827;"></span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Pastel Bloom -->
+            <article class="card" style="--card-bg:#FEF2F2; --card-border:#FBCFE8; --text-primary:#312E81; --text-secondary:#4C1D95; --text-muted:#6D28D9;">
+                <h2>Pastel Bloom</h2>
+                <div class="palette">
+                    <div class="swatch-row">
+                        <span class="label">Primary</span>
+                        <span class="value">#F472B6</span>
+                        <span class="swatch" style="background:#F472B6;"></span>
+                    </div>
+                    <div class="swatch-row">
+                        <span class="label">Secondary</span>
+                        <span class="value">#C084FC</span>
+                        <span class="swatch" style="background:#C084FC;"></span>
+                    </div>
+                    <div class="swatch-row">
+                        <span class="label">Accent</span>
+                        <span class="value">#FDE047</span>
+                        <span class="swatch" style="background:#FDE047;"></span>
+                    </div>
+                    <div class="swatch-row">
+                        <span class="label">Surface</span>
+                        <span class="value">#FEF2F2</span>
+                        <span class="swatch" style="background:#FEF2F2;"></span>
+                    </div>
+                    <div class="swatch-row">
+                        <span class="label">Background</span>
+                        <span class="value">#FDF2F8</span>
+                        <span class="swatch" style="background:#FDF2F8;"></span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Citrus Lavender -->
+            <article class="card" style="--card-bg:#FFF9ED; --card-border:#FDE68A; --text-primary:#1D1E3C; --text-secondary:#5B5F8A; --text-muted:#8B5CF6;">
+                <h2>Citrus Lavender</h2>
+                <div class="palette">
+                    <div class="swatch-row">
+                        <span class="label">Primary</span>
+                        <span class="value">#A855F7</span>
+                        <span class="swatch" style="background:#A855F7;"></span>
+                    </div>
+                    <div class="swatch-row">
+                        <span class="label">Secondary</span>
+                        <span class="value">#FCD34D</span>
+                        <span class="swatch" style="background:#FCD34D;"></span>
+                    </div>
+                    <div class="swatch-row">
+                        <span class="label">Accent</span>
+                        <span class="value">#34D399</span>
+                        <span class="swatch" style="background:#34D399;"></span>
+                    </div>
+                    <div class="swatch-row">
+                        <span class="label">Surface</span>
+                        <span class="value">#FFF9ED</span>
+                        <span class="swatch" style="background:#FFF9ED;"></span>
+                    </div>
+                    <div class="swatch-row">
+                        <span class="label">Background</span>
+                        <span class="value">#F5F3FF</span>
+                        <span class="swatch" style="background:#F5F3FF;"></span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Saffron Slate -->
+            <article class="card" style="--card-bg:#FFFBEB; --card-border:#FCD34D; --text-primary:#1F2937; --text-secondary:#4B5563; --text-muted:#6B7280;">
+                <h2>Saffron Slate</h2>
+                <div class="palette">
+                    <div class="swatch-row">
+                        <span class="label">Primary</span>
+                        <span class="value">#F59E0B</span>
+                        <span class="swatch" style="background:#F59E0B;"></span>
+                    </div>
+                    <div class="swatch-row">
+                        <span class="label">Secondary</span>
+                        <span class="value">#7F1D1D</span>
+                        <span class="swatch" style="background:#7F1D1D;"></span>
+                    </div>
+                    <div class="swatch-row">
+                        <span class="label">Accent</span>
+                        <span class="value">#8B5CF6</span>
+                        <span class="swatch" style="background:#8B5CF6;"></span>
+                    </div>
+                    <div class="swatch-row">
+                        <span class="label">Surface</span>
+                        <span class="value">#FFFBEB</span>
+                        <span class="swatch" style="background:#FFFBEB;"></span>
+                    </div>
+                    <div class="swatch-row">
+                        <span class="label">Background</span>
+                        <span class="value">#F3F4F6</span>
+                        <span class="swatch" style="background:#F3F4F6;"></span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Midnight Orchid -->
+            <article class="card" style="--card-bg:#1F1B2C; --card-border:#0F0A1A; --text-primary:#F9FAFB; --text-secondary:#E0E7FF; --text-muted:#C7D2FE;">
+                <h2>Midnight Orchid</h2>
+                <div class="palette">
+                    <div class="swatch-row">
+                        <span class="label">Primary</span>
+                        <span class="value">#4C1D95</span>
+                        <span class="swatch" style="background:#4C1D95;"></span>
+                    </div>
+                    <div class="swatch-row">
+                        <span class="label">Secondary</span>
+                        <span class="value">#F87171</span>
+                        <span class="swatch" style="background:#F87171;"></span>
+                    </div>
+                    <div class="swatch-row">
+                        <span class="label">Accent</span>
+                        <span class="value">#FBBF24</span>
+                        <span class="swatch" style="background:#FBBF24;"></span>
+                    </div>
+                    <div class="swatch-row">
+                        <span class="label">Surface</span>
+                        <span class="value">#1F1B2C</span>
+                        <span class="swatch" style="background:#1F1B2C;"></span>
+                    </div>
+                    <div class="swatch-row">
+                        <span class="label">Background</span>
+                        <span class="value">#0F0A1A</span>
+                        <span class="swatch" style="background:#0F0A1A;"></span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Blush Breeze -->
+            <article class="card" style="--card-bg:#FFF5F7; --card-border:#FBCFE8; --text-primary:#1F1A2E; --text-secondary:#4C4069; --text-muted:#6B5B8D;">
+                <h2>Blush Breeze</h2>
+                <div class="palette">
+                    <div class="swatch-row">
+                        <span class="label">Primary</span>
+                        <span class="value">#F472B6</span>
+                        <span class="swatch" style="background:#F472B6;"></span>
+                    </div>
+                    <div class="swatch-row">
+                        <span class="label">Secondary</span>
+                        <span class="value">#FB7185</span>
+                        <span class="swatch" style="background:#FB7185;"></span>
+                    </div>
+                    <div class="swatch-row">
+                        <span class="label">Accent</span>
+                        <span class="value">#A78BFA</span>
+                        <span class="swatch" style="background:#A78BFA;"></span>
+                    </div>
+                    <div class="swatch-row">
+                        <span class="label">Surface</span>
+                        <span class="value">#FFF5F7</span>
+                        <span class="swatch" style="background:#FFF5F7;"></span>
+                    </div>
+                    <div class="swatch-row">
+                        <span class="label">Background</span>
+                        <span class="value">#FDF2F8</span>
+                        <span class="swatch" style="background:#FDF2F8;"></span>
+                    </div>
+                </div>
+            </article>
+        </section>
+    </main>
+</body>
+</html>
