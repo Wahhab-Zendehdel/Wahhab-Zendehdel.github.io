@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UI Mockup - Salon Booking</title>
+    <!-- 1. Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- 2. Set Vazirmatn font (Excellent for Persian) -->
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- 3. Custom Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Vazirmatn', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            light: '#a78bfa', // violet-400
+                            DEFAULT: '#8b5cf6', // violet-500
+                            dark: '#7c3aed',  // violet-700
+                        },
+                        secondary: {
+                            light: '#fde68a', // amber-200
+                            DEFAULT: '#f59e0b', // amber-500
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- 4. Custom Styles -->
+    <style>
+        body {
+            font-family: 'Vazirmatn', 'sans-serif';
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        /* Style for the mobile app container */
+        .mobile-container {
+            width: min(400px, 100%);
+            max-width: 400px;
+            height: min(800px, calc(100vh - 32px));
+            min-height: 600px;
+            border: 1px solid #e5e7eb; /* gray-200 */
+            border-radius: 1.5rem; /* rounded-3xl */
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            background-color: #f9fafb; /* gray-50 */
+            position: relative;
+        }
+        
+        .circle-nav-wrapper {
+            position: absolute;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1.5rem;
+            z-index: 40;
+        }
+
+        .circle-nav-button {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            border: 2px solid #e5e7eb;
+            background-color: #ffffff;
+            color: #8b5cf6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .circle-nav-button:not(:disabled):hover {
+            transform: scale(1.05);
+        }
+
+        .circle-nav-button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        
+        .app-main {
+            height: 100%;
+            position: relative;
+        }
+
+        .app-screen {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            padding-bottom: 4rem;
+            box-sizing: border-box;
+            background-color: inherit;
+        }
+        
+        /* Helper to hide screens */
+        .hidden-screen {
+            display: none !important;
+        }
+
+        /* Simple tab active state */
+        .tab-active {
+            border-bottom-color: #8b5cf6; /* primary.DEFAULT */
+            color: #8b5cf6; /* primary.DEFAULT */
+            font-weight: 600;
+        }
+
+        /* Custom scrollbar for lists */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #d1d5db; /* gray-300 */
+            border-radius: 2px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f9fafb; /* gray-50 */
+        }
+
+        /* Selected time slot */
+        .slot-selected {
+            background-color: #8b5cf6; /* primary.DEFAULT */
+            color: white;
+            border-color: #8b5cf6;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="bg-gray-200 flex items-center justify-center min-h-screen p-4" dir="rtl">
+
+    <!-- Mobile App Container -->
+    <div class="mobile-container">
+
+        <!-- 
+          App Body: Main content area that switches between screens 
+        -->
+        <main class="flex-1 overflow-hidden app-main">
+
+            <!-- 
+              =====================================
+              Screen 0: Login (NEW)
+              =====================================
+            -->
+            <div id="screen-login" class="app-screen flex flex-col justify-center items-center h-full p-8">
+                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary mb-6"><path d="M14.5 11.5a3 3 0 1 1-3 3 3 3 0 0 1 3-3zM8.5 2.5a3 3 0 1 1-3 3 3 3 0 0 1 3-3zM14.5 11.5l-6-6M8.5 13.5a3 3 0 1 1-3 3 3 3 0 0 1 3-3zM19.5 2.5a3 3 0 1 1-3 3 3 3 0 0 1 3-3zM14.5 2.5a3 3 0 1 1-3 3 3 3 0 0 1 3-3zM19.5 13.5a3 3 0 1 1-3 3 3 3 0 0 1 3-3zM19.5 8.5a3 3 0 1 1-3 3 3 3 0 0 1 3-3zM8.5 8.5a3 3 0 1 1-3 3 3 3 0 0 1 3-3zM2.5 13.5a3 3 0 1 1-3 3 3 3 0 0 1 3-3zM14.5 19.5a3 3 0 1 1-3 3 3 3 0 0 1 3-3zM2.5 8.5a3 3 0 1 1-3 3 3 3 0 0 1 3-3zM8.5 19.5a3 3 0 1 1-3 3 3 3 0 0 1 3-3z"/></svg>
+                <h1 class="text-2xl font-bold text-gray-900 mb-2">به «رزرو» خوش آمدید</h1>
+                <p class="text-gray-600 mb-8 text-center">برای ورود یا ثبت‌نام، شماره موبایل خود را وارد کنید.</p>
+                
+                <div class="w-full">
+                    <label for="phone" class="text-sm font-medium text-gray-700">شماره موبایل</label>
+                    <input type="tel" id="phone" placeholder="۰۹۱۲۳۴۵۶۷۸۹" class="w-full h-12 mt-2 bg-gray-100 border-2 border-transparent rounded-lg px-4 text-left focus:outline-none focus:border-primary focus:ring-primary" dir="ltr">
+                </div>
+                
+                <button class="w-full h-12 bg-primary text-white rounded-lg font-semibold mt-6" onclick="showScreen('screen-otp')">
+                    ادامه
+                </button>
+            </div>
+
+            <!-- 
+              =====================================
+              Screen 0.5: OTP (NEW)
+              =====================================
+            -->
+            <div id="screen-otp" class="app-screen hidden-screen flex flex-col justify-center items-center h-full p-8">
+                <h1 class="text-2xl font-bold text-gray-900 mb-2">کد تایید</h1>
+                <p class="text-gray-600 mb-8 text-center">کد ۴ رقمی ارسال‌شده به <span class="font-semibold" dir="ltr">+۹۸ ۹۱۲ ۳۴۵ ۶۷۸۹</span> را وارد کنید.</p>
+                
+                <div class="flex justify-center gap-3" dir="ltr">
+                    <input type="text" maxlength="1" class="w-14 h-16 bg-gray-100 border-2 border-gray-200 rounded-lg text-center text-2xl font-bold focus:outline-none focus:border-primary focus:ring-primary">
+                    <input type="text" maxlength="1" class="w-14 h-16 bg-gray-100 border-2 border-gray-200 rounded-lg text-center text-2xl font-bold focus:outline-none focus:border-primary focus:ring-primary">
+                    <input type="text" maxlength="1" class="w-14 h-16 bg-gray-100 border-2 border-gray-200 rounded-lg text-center text-2xl font-bold focus:outline-none focus:border-primary focus:ring-primary">
+                    <input type="text" maxlength="1" class="w-14 h-16 bg-gray-100 border-2 border-gray-200 rounded-lg text-center text-2xl font-bold focus:outline-none focus:border-primary focus:ring-primary">
+                </div>
+                
+                <button class="w-full h-12 bg-primary text-white rounded-lg font-semibold mt-8" onclick="showScreen('screen-home');">
+                    تایید و ورود
+                </button>
+                
+                <a href="#" class="text-sm text-primary font-medium mt-4">ارسال مجدد کد (۰۰:۴۵)</a>
+            </div>
+
+            <!-- 
+              =====================================
+              Screen 1: Home / Search
+              =====================================
+            -->
+            <div id="screen-home" class="app-screen hidden-screen">
+                <!-- Header -->
+                <div class="p-4 bg-white shadow-sm">
+                    <div class="flex justify-between items-center">
+                        <div class="flex flex-col">
+                            <span class="text-sm text-gray-500">موقعیت مکانی</span>
+                            <span class="font-semibold text-gray-800 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-1 text-primary-dark"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                                تهران، جردن
+                            </span>
+                        </div>
+                        <button class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-600"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+                        </button>
+                    </div>
+                    
+                    <!-- Search Bar (from RFP) -->
+                    <div class="mt-4 relative">
+                        <input type="text" placeholder="جستجوی خدمت یا سالن..." class="w-full h-12 bg-gray-100 rounded-lg pe-4 ps-12 text-sm border-2 border-transparent focus:outline-none focus:border-primary focus:ring-primary">
+                        <span class="absolute top-1/2 -translate-y-1/2 start-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Quick Categories -->
+                <div class="p-4">
+                    <h2 class="font-semibold text-lg text-gray-800 mb-3">دسته‌بندی‌ها</h2>
+                    <div class="grid grid-cols-4 gap-4 text-center">
+                        <a href="javascript:void(0)" class="flex flex-col items-center">
+                            <div class="w-16 h-16 bg-primary-light/20 text-primary-dark rounded-xl flex items-center justify-center">
+                                <!-- Icon: Scissors -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><path d="M8.12 8.12 12 12"/><path d="M20 4 8.12 15.88"/><circle cx="6" cy="18" r="3"/><path d="M14.8 14.8 20 20"/><path d="m8.12 8.12-6.24 6.24"/><path d="M14.8 14.8 22 22"/></svg>
+                            </div>
+                            <span class="text-sm font-medium text-gray-700 mt-2">مو</span>
+                        </a>
+                        <a href="javascript:void(0)" class="flex flex-col items-center">
+                            <div class="w-16 h-16 bg-pink-100 text-pink-600 rounded-xl flex items-center justify-center">
+                                <!-- Icon: Hand -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"/><path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"/><path d="M10 9V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v5"/><path d="M18 11a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2v0a2 2 0 0 1-2-2v-2"/><path d="M14 10a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2v0a2 2 0 0 1-2-2v-4"/><path d="M10 9a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2v0a2 2 0 0 1-2-2v-6"/><path d="M6 14a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2v0a2 2 0 0 1-2-2v-4"/></svg>
+                            </div>
+                            <span class="text-sm font-medium text-gray-700 mt-2">ناخن</span>
+                        </a>
+                        <a href="javascript:void(0)" class="flex flex-col items-center">
+                            <div class="w-16 h-16 bg-teal-100 text-teal-600 rounded-xl flex items-center justify-center">
+                                <!-- Icon: Smile -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+                            </div>
+                            <span class="text-sm font-medium text-gray-700 mt-2">پوست</span>
+                        </a>
+                        <a href="javascript:void(0)" class="flex flex-col items-center">
+                            <div class="w-16 h-16 bg-gray-100 text-gray-600 rounded-xl flex items-center justify-center">
+                                <!-- Icon: More Horizontal -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+                            </div>
+                            <span class="text-sm font-medium text-gray-700 mt-2">بیشتر</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Nearby Salons (Results) -->
+                <div class="p-4">
+                    <div class="flex justify-between items-center mb-3">
+                        <h2 class="font-semibold text-lg text-gray-800">نزدیک شما</h2>
+                        <a href="javascript:void(0)" class="text-sm font-medium text-primary" onclick="showScreen('screen-results')">مشاهده همه</a>
+                    </div>
+                    
+                    <!-- Result Card 1 -->
+                    <div class="bg-white p-3 rounded-xl shadow-sm flex items-center" onclick="showScreen('screen-details')">
+                        <img src="https://placehold.co/80x80/d1fae5/065f46?text=Salon" alt="Salon" class="w-20 h-20 rounded-lg object-cover me-3">
+                        <div class="flex-1">
+                            <h3 class="font-semibold text-gray-800">سالن زیبایی «مریم»</h3>
+                            <p class="text-sm text-gray-500 mt-1">جردن، بلوار نلسون ماندلا</p>
+                            <div class="flex items-center mt-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#f59e0b" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                <span class="text-sm font-medium text-gray-700">4.8</span>
+                                <span class="text-xs text-gray-400 ms-1">(+120 نظر)</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Result Card 2 -->
+                    <div class="bg-white p-3 rounded-xl shadow-sm flex items-center mt-3" onclick="showScreen('screen-details')">
+                        <img src="https://placehold.co/80x80/fef3c7/92400e?text=Line" alt="Provider" class="w-20 h-20 rounded-lg object-cover me-3">
+                        <div class="flex-1">
+                            <h3 class="font-semibold text-gray-800">لاین ناخن «سارا» (فردی)</h3>
+                            <p class="text-sm text-gray-500 mt-1">سعادت‌آباد، میدان کاج</p>
+                            <div class="flex items-center mt-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#f59e0b" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                <span class="text-sm font-medium text-gray-700">4.9</span>
+                                <span class="text-xs text-gray-400 ms-1">(+250 نظر)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- 
+              =====================================
+              Screen 2: Search Results (Map/List)
+              =====================================
+            -->
+            <div id="screen-results" class="app-screen hidden-screen">
+                <!-- Header with Back button and Filters -->
+                <div class="p-4 bg-white sticky top-0 shadow-sm z-10">
+                    <div class="flex justify-between items-center mb-4">
+                        <button onclick="showScreen('screen-home')">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-700"><path d="m15 18-6-6 6-6"/></svg>
+                        </button>
+                        <h1 class="font-semibold text-lg">نتایج جستجو</h1>
+                        <button>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-700"><path d="M20 7h-9"/><path d="M14 17H4"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>
+                        </button>
+                    </div>
+                    <!-- Map/List Toggle -->
+                    <div class="flex justify-center">
+                        <div class="flex p-1 bg-gray-100 rounded-lg">
+                            <button class="w-24 px-4 py-2 text-sm rounded-md bg-white shadow-sm font-semibold text-primary">لیست</button>
+                            <button class="w-24 px-4 py-2 text-sm rounded-md text-gray-600" onclick="showScreen('screen-map')">نقشه</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Results List -->
+                <div class="p-4 space-y-3">
+                    <div class="bg-white p-3 rounded-xl shadow-sm flex items-center" onclick="showScreen('screen-details')">
+                        <img src="https://placehold.co/80x80/d1fae5/065f46?text=Salon" alt="Salon" class="w-20 h-20 rounded-lg object-cover me-3">
+                        <div class="flex-1">
+                            <h3 class="font-semibold text-gray-800">سالن زیبایی «مریم»</h3>
+                            <p class="text-sm text-gray-500 mt-1">جردن، بلوار نلسون ماندلا</p>
+                            <div class="flex items-center mt-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#f59e0b" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                <span class="text-sm font-medium text-gray-700">4.8</span>
+                                <span class="text-xs text-gray-400 ms-1">(+120 نظر)</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white p-3 rounded-xl shadow-sm flex items-center" onclick="showScreen('screen-details')">
+                        <img src="https://placehold.co/80x80/fef3c7/92400e?text=Line" alt="Provider" class="w-20 h-20 rounded-lg object-cover me-3">
+                        <div class="flex-1">
+                            <h3 class="font-semibold text-gray-800">لاین ناخن «سارا» (فردی)</h3>
+                            <p class="text-sm text-gray-500 mt-1">سعادت‌آباد، میدان کاج</p>
+                            <div class="flex items-center mt-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#f59e0b" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                <span class="text-sm font-medium text-gray-700">4.9</span>
+                                <span class="text-xs text-gray-400 ms-1">(+250 نظر)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-3 rounded-xl shadow-sm flex items-center" onclick="showScreen('screen-details')">
+                        <img src="https://placehold.co/80x80/ffe4e6/9f1239?text=Salon" alt="Salon" class="w-20 h-20 rounded-lg object-cover me-3">
+                        <div class="flex-1">
+                            <h3 class="font-semibold text-gray-800">سالن «زیبایی نوین»</h3>
+                            <p class="text-sm text-gray-500 mt-1">ونک، خیابان خدامی</p>
+                            <div class="flex items-center mt-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#f59e0b" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                <span class="text-sm font-medium text-gray-700">4.5</span>
+                                <span class="text-xs text-gray-400 ms-1">(+88 نظر)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 
+              =====================================
+              Screen 2.5: Map View (NEW)
+              =====================================
+            -->
+            <div id="screen-map" class="app-screen hidden-screen h-full flex flex-col">
+                <!-- Header -->
+                <div class="p-4 bg-white shadow-sm z-10">
+                    <div class="flex justify-between items-center">
+                        <button class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-600"><path d="M20 7h-9"/><path d="M14 17H4"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>
+                        </button>
+                         <input type="text" placeholder="جستجو در این محدوده..." class="flex-1 mx-3 h-10 bg-gray-100 rounded-lg px-4 text-sm border-2 border-transparent focus:outline-none focus:border-primary focus:ring-primary">
+                        <button class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
+                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-600"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                        </button>
+                    </div>
+                </div>
+                <!-- Map Area -->
+                <div class="flex-1 bg-teal-50 relative overflow-hidden">
+                    <!-- Fake Map Background -->
+                    <img src="https://placehold.co/400x700/a7f3d0/047857?text=Map+Placeholder" class="w-full h-full object-cover opacity-30" alt="Map">
+                    
+                    <!-- RFP Feature: Cluster Pin -->
+                    <div class="absolute top-1/4 start-1/4">
+                        <button class="w-12 h-12 bg-primary-dark text-white rounded-full flex items-center justify-center font-bold text-sm shadow-lg border-2 border-white">
+                            +۱۰
+                        </button>
+                    </div>
+                    
+                    <!-- RFP Feature: Salon Pin -->
+                    <div class="absolute top-1/2 start-1/3 transform -translate-x-1/2 -translate-y-1/2">
+                        <button class="flex flex-col items-center">
+                            <span class="px-3 py-1 bg-white rounded-full shadow-md text-sm font-semibold text-gray-800">سالن مریم</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="drop-shadow-lg -mt-1"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" fill="#a78bfa"/><circle cx="12" cy="10" r="3" fill="white"/></svg>
+                        </button>
+                    </div>
+
+                    <!-- RFP Feature: Individual Line Pin -->
+                    <div class="absolute top-2/3 start-3/4 transform -translate-x-1/2 -translate-y-1/2">
+                        <button class="flex flex-col items-center">
+                            <span class="px-3 py-1 bg-white rounded-full shadow-md text-sm font-semibold text-gray-800">لاین سارا</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="drop-shadow-lg -mt-1"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" fill="#fde68a"/><circle cx="12" cy="10" r="3" fill="white"/></svg>
+                        </button>
+                    </div>
+
+                    <!-- Toggle Button -->
+                    <button class="absolute bottom-6 left-1/2 -translate-x-1/2 w-32 h-12 bg-gray-900 text-white rounded-full shadow-lg font-semibold flex items-center justify-center" onclick="showScreen('screen-results')">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                        نمایش لیست
+                    </button>
+                </div>
+            </div>
+
+            <!-- 
+              =====================================
+              Screen 3: Salon/Provider Details
+              =====================================
+            -->
+            <div id="screen-details" class="app-screen hidden-screen">
+                <!-- Header Image -->
+                <div class="h-48 bg-cover bg-center relative" style="background-image: url('https://placehold.co/400x192/c4b5fd/4338ca?text=Gallery+Placeholder')">
+                    <!-- Back Button -->
+                    <button class="absolute top-4 start-4 w-10 h-10 bg-white/80 rounded-full flex items-center justify-center backdrop-blur-sm" onclick="showScreen('screen-home')">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-900"><path d="m15 18-6-6 6-6"/></svg>
+                    </button>
+                    <!-- Favorite Button -->
+                    <button class="absolute top-4 end-4 w-10 h-10 bg-white/80 rounded-full flex items-center justify-center backdrop-blur-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-900"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.04 3 5.5l7 7Z"/></svg>
+                    </button>
+                </div>
+                
+                <!-- Info Header -->
+                <div class="p-4 bg-white -mt-6 rounded-t-2xl shadow-lg">
+                    <h1 class="text-2xl font-bold text-gray-900">سالن زیبایی «مریم»</h1>
+                    <p class="text-sm text-gray-600 mt-2">جردن، بلوار نلسون ماندلا، پلاک ۱۲۰</p>
+                    <div class="flex items-center mt-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#f59e0b" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <span class="text-sm font-semibold text-gray-700">4.8</span>
+                        <span class="text-sm text-gray-500 ms-1">(+120 نظر)</span>
+                        <span class="mx-2 text-gray-300">|</span>
+                        <span class="text-sm text-green-600 font-medium">باز</span>
+                        <span class="text-sm text-gray-500 ms-1">- ۲۱:۰۰ امشب می‌بندد</span>
+                    </div>
+                </div>
+
+                <!-- Tabs: Services, Reviews, Info -->
+                <div class="sticky top-0 bg-white border-b border-gray-200 z-10">
+                    <nav class="flex justify-around text-center">
+                        <button class="flex-1 py-3 border-b-2 tab-active" onclick="showTab('services')">خدمات (لاین‌ها)</button>
+                        <button class="flex-1 py-3 border-b-2 border-transparent text-gray-500" onclick="showTab('reviews')">نظرات</button>
+                        <button class="flex-1 py-3 border-b-2 border-transparent text-gray-500" onclick="showTab('info')">اطلاعات</button>
+                    </nav>
+                </div>
+
+                <!-- Tab Content: Services (Default) -->
+                <div id="tab-services" class="p-4 space-y-3">
+                    <h3 class="font-semibold text-gray-700">لاین ناخن (سارا)</h3>
+                    <div class="flex justify-between items-center bg-white p-3 rounded-lg shadow-sm">
+                        <div>
+                            <h4 class="font-semibold text-gray-800">مانیکور</h4>
+                            <p class="text-sm text-gray-500">۴۵ دقیقه</p>
+                        </div>
+                        <div class="text-left">
+                            <span class="font-semibold text-gray-800">۲۵۰,۰۰۰ ت</span>
+                            <button class="block mt-1 w-20 py-2 bg-primary text-white text-sm rounded-lg" onclick="showScreen('screen-booking')">رزرو</button>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center bg-white p-3 rounded-lg shadow-sm">
+                        <div>
+                            <h4 class="font-semibold text-gray-800">پدیکور</h4>
+                            <p class="text-sm text-gray-500">۶۰ دقیقه</p>
+                        </div>
+                        <div class="text-left">
+                            <span class="font-semibold text-gray-800">۳۵۰,۰۰۰ ت</span>
+                            <button class="block mt-1 w-20 py-2 bg-primary text-white text-sm rounded-lg" onclick="showScreen('screen-booking')">رزرو</button>
+                        </div>
+                    </div>
+                    
+                    <h3 class="font-semibold text-gray-700 pt-3">لاین مو (رویا)</h3>
+                    <div class="flex justify-between items-center bg-white p-3 rounded-lg shadow-sm">
+                        <div>
+                            <h4 class="font-semibold text-gray-800">کوتاهی مو</h4>
+                            <p class="text-sm text-gray-500">۳۰ دقیقه</p>
+                        </div>
+                        <div class="text-left">
+                            <span class="font-semibold text-gray-800">۲۰۰,۰۰۰ ت</span>
+                            <button class="block mt-1 w-20 py-2 bg-primary text-white text-sm rounded-lg" onclick="showScreen('screen-booking')">رزرو</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Content: Reviews -->
+                <div id="tab-reviews" class="p-4 space-y-3 hidden-screen">
+                    <div class="bg-white p-3 rounded-lg shadow-sm">
+                        <div class="flex items-center mb-2">
+                            <img src="https://placehold.co/40x40/e0e7ff/3730a3?text=A" alt="user" class="w-10 h-10 rounded-full me-3">
+                            <div>
+                                <h4 class="font-semibold text-sm">آنا محمدی</h4>
+                                <span class="text-xs text-gray-400">۲ روز پیش</span>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-700">بسیار حرفه‌ای و وقت‌شناس. کار سارا عالی بود.</p>
+                    </div>
+                    <!-- More reviews... -->
+                </div>
+                
+                <!-- Tab Content: Info -->
+                <div id="tab-info" class="p-4 space-y-3 hidden-screen">
+                    <div class="bg-white p-3 rounded-lg shadow-sm">
+                        <h4 class="font-semibold mb-2">ساعات کاری</h4>
+                        <p class="text-sm text-gray-700">شنبه تا پنج‌شنبه: ۱۰:۰۰ - ۲۱:۰۰</p>
+                        <p class="text-sm text-gray-700">جمعه: تعطیل</p>
+                    </div>
+                    <!-- More info... -->
+                </div>
+            </div>
+
+            <!-- 
+              =====================================
+              Screen 4: Booking / Calendar
+              =====================================
+            -->
+            <div id="screen-booking" class="app-screen hidden-screen">
+                <!-- Header -->
+                <div class="p-4 bg-white sticky top-0 shadow-sm z-10">
+                    <div class="flex justify-between items-center">
+                        <button onclick="showScreen('screen-details')">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-700"><path d="m15 18-6-6 6-6"/></svg>
+                        </button>
+                        <h1 class="font-semibold text-lg">انتخاب زمان</h1>
+                        <div class="w-6"></div> <!-- Spacer -->
+                    </div>
+                </div>
+
+                <!-- Service Info -->
+                <div class="p-4">
+                    <div class="bg-white p-3 rounded-xl shadow-sm">
+                        <h2 class="text-xl font-bold text-gray-800">مانیکور</h2>
+                        <p class="text-gray-600 mt-1">لاین ناخن (سارا)</p>
+                        <div class="flex justify-between items-center mt-2 text-sm text-gray-700">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block me-1 w-4 h-4"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                                ۴۵ دقیقه
+                            </span>
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block me-1 w-4 h-4"><path d="M21 12a9 9 0 0 0-9-9h-1a5 5 0 0 0-5 5v3"/><path d="M18 12a9 9 0 0 1-9 9h-1a5 5 0 0 1-5-5v-3"/><path d="M3 3L21 21"/></svg>
+                                ۲۵۰,۰۰۰ ت
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Date Picker -->
+                <div class="px-4">
+                    <h3 class="font-semibold text-gray-800 mb-3">انتخاب روز</h3>
+                    <div class="flex justify-between space-x-2 text-center overflow-x-auto pb-2">
+                        <div class="flex-shrink-0 flex flex-col items-center p-2 rounded-lg w-16">
+                            <span class="text-sm text-gray-500">شنبه</span>
+                            <span class="font-bold text-lg text-gray-800">۲۱</span>
+                        </div>
+                        <div class="flex-shrink-0 flex flex-col items-center p-2 rounded-lg w-16 bg-primary text-white shadow-lg">
+                            <span class="text-sm">یک‌شنبه</span>
+                            <span class="font-bold text-lg">۲۲</span>
+                        </div>
+                        <div class="flex-shrink-0 flex flex-col items-center p-2 rounded-lg w-16">
+                            <span class="text-sm text-gray-500">دوشنبه</span>
+                            <span class="font-bold text-lg text-gray-800">۲۳</span>
+                        </div>
+                        <div class="flex-shrink-0 flex flex-col items-center p-2 rounded-lg w-16">
+                            <span class="text-sm text-gray-500">سه‌شنبه</span>
+                            <span class="font-bold text-lg text-gray-800">۲۴</span>
+                        </div>
+                        <div class="flex-shrink-0 flex flex-col items-center p-2 rounded-lg w-16">
+                            <span class="text-sm text-gray-500">چهارشنبه</span>
+                            <span class="font-bold text-lg text-gray-800">۲۵</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Time Slots (from RFP) -->
+                <div class="p-4">
+                    <h3 class="font-semibold text-gray-800 mb-3">اسلات‌های خالی</h3>
+                    <div class="grid grid-cols-3 gap-3" id="time-slot-container">
+                        <button class="h-12 border border-gray-300 rounded-lg text-gray-700 font-medium text-sm" onclick="selectSlot(this)">۰۹:۰۰</button>
+                        <button class="h-12 border border-gray-300 rounded-lg text-gray-700 font-medium text-sm" onclick="selectSlot(this)">۰۹:۴۵</button>
+                        <button class="h-12 border border-gray-300 rounded-lg text-gray-700 font-medium text-sm" onclick="selectSlot(this)">۱۰:۳۰</button>
+                        <button class="h-12 border border-gray-300 rounded-lg text-gray-700 font-medium text-sm" onclick="selectSlot(this)">۱۱:۱۵</button>
+                        <button class="h-12 border border-gray-200 bg-gray-100 rounded-lg text-gray-400 font-medium text-sm" disabled>۱۲:۰۰</button>
+                        <button class="h-12 border border-gray-300 rounded-lg text-gray-700 font-medium text-sm" onclick="selectSlot(this)">۱۴:۰۰</button>
+                        <button class="h-12 border border-gray-300 rounded-lg text-gray-700 font-medium text-sm" onclick="selectSlot(this)">۱۴:۴۵</button>
+                        <button class="h-12 border border-gray-300 rounded-lg text-gray-700 font-medium text-sm" onclick="selectSlot(this)">۱۵:۳۰</button>
+                        <button class="h-12 border border-gray-300 rounded-lg text-gray-700 font-medium text-sm" onclick="selectSlot(this)">۱۶:۱۵</button>
+                    </div>
+                </div>
+
+                <!-- Booking Button (sticky footer) -->
+                <div classT="p-4 bg-white border-t border-gray-200 sticky bottom-0">
+                    <button id="book-button" class="w-full h-12 bg-primary text-white rounded-lg font-semibold opacity-50 cursor-not-allowed" onclick="showConfirmation()" disabled>
+                        تایید و رزرو نوبت
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- 
+              =====================================
+              Screen 5: My Bookings (NEW)
+              =====================================
+            -->
+            <div id="screen-my-bookings" class="app-screen hidden-screen">
+                <!-- Header -->
+                <div class="p-4 bg-white sticky top-0 shadow-sm z-10">
+                    <h1 class="font-semibold text-lg text-center">نوبت‌های من</h1>
+                </div>
+                
+                <!-- Tabs -->
+                <div class="sticky top-16 bg-white border-b border-gray-200 z-10">
+                    <nav class="flex justify-around text-center">
+                        <button class="flex-1 py-3 border-b-2 tab-active">آینده</button>
+                        <button class="flex-1 py-3 border-b-2 border-transparent text-gray-500">گذشته</button>
+                    </nav>
+                </div>
+
+                <!-- Bookings List -->
+                <div class="p-4 space-y-3">
+                    <div class="bg-white p-3 rounded-xl shadow-sm">
+                        <div class="flex items-center mb-3">
+                            <img src="https://placehold.co/64x64/d1fae5/065f46?text=Salon" alt="Salon" class="w-16 h-16 rounded-lg object-cover me-3">
+                            <div>
+                                <h3 class="font-semibold text-gray-800">سالن زیبایی «مریم»</h3>
+                                <p class="text-sm text-gray-500">لاین ناخن (سارا)</p>
+                            </div>
+                        </div>
+                        <div class="border-t border-gray-100 pt-3">
+                            <p class="font-semibold text-gray-700">مانیکور</p>
+                            <p class="text-sm text-gray-500">یک‌شنبه، ۲۲ آبان - ساعت ۱۰:۳۰</p>
+                            <button class="w-full h-10 bg-gray-100 text-gray-700 rounded-lg font-semibold mt-3 text-sm">لغو نوبت</button>
+                        </div>
+                    </div>
+                    <!-- More bookings... -->
+                </div>
+            </div>
+
+            <!-- 
+              =====================================
+              Screen 6: Profile (NEW)
+              =====================================
+            -->
+            <div id="screen-profile" class="app-screen hidden-screen">
+                <!-- Header -->
+                <div class="p-4 bg-white sticky top-0 shadow-sm z-10">
+                    <h1 class="font-semibold text-lg text-center">پروفایل</h1>
+                </div>
+
+                <!-- User Info -->
+                <div class="p-4 flex items-center">
+                    <img src="https://placehold.co/64x64/e0e7ff/3730a3?text=A" alt="user" class="w-16 h-16 rounded-full me-4">
+                    <div>
+                        <h2 class="text-xl font-semibold text-gray-900">آنا محمدی</h2>
+                        <p class="text-gray-600" dir="ltr">+۹۸ ۹۱۲ ۳۴۵ ۶۷۸۹</p>
+                    </div>
+                </div>
+
+                <!-- Menu List -->
+                <div class="p-4">
+                    <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+                        <a href="javascript:void(0)" class="flex justify-between items-center p-4 border-b border-gray-100">
+                            <span class="text-gray-700 font-medium">نوبت‌های من</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400 transform scale-x-[-1]"><path d="m15 18-6-6 6-6"/></svg>
+                        </a>
+                        <a href="javascript:void(0)" class="flex justify-between items-center p-4 border-b border-gray-100">
+                            <span class="text-gray-700 font-medium">علاقه‌مندی‌ها</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400 transform scale-x-[-1]"><path d="m15 18-6-6 6-6"/></svg>
+                        </a>
+                        <a href="javascript:void(0)" class="flex justify-between items-center p-4 border-b border-gray-100">
+                            <span class="text-gray-700 font-medium">آدرس‌های من</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400 transform scale-x-[-1]"><path d="m15 18-6-6 6-6"/></svg>
+                        </a>
+                        <a href="javascript:void(0)" class="flex justify-between items-center p-4">
+                            <span class="text-gray-700 font-medium">پشتیبانی</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400 transform scale-x-[-1]"><path d="m15 18-6-6 6-6"/></svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="p-4">
+                    <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+                        <a href="javascript:void(0)" class="flex justify-center items-center p-4" onclick="showScreen('screen-login')">
+                            <span class="text-red-500 font-medium">خروج از حساب</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </main>
+
+        <!-- Circle Navigation Controls -->
+        <div class="circle-nav-wrapper">
+            <button id="nav-prev" type="button" class="circle-nav-button" onclick="showPrevScreen()" aria-label="Previous screen">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+            </button>
+            <button id="nav-next" type="button" class="circle-nav-button" onclick="showNextScreen()" aria-label="Next screen">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg>
+            </button>
+        </div>
+    </div>
+    
+    <!-- 
+      =====================================
+      Modal: Booking Confirmation
+      =====================================
+    -->
+    <div id="modal-confirm" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden-screen" onclick="hideConfirmation()">
+        <div class="bg-white rounded-2xl p-6 shadow-xl w-full max-w-sm text-center" onclick="event.stopPropagation()">
+            <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            </div>
+            <h2 class="text-xl font-bold text-gray-900 mt-4">رزرو شما تایید شد!</h2>
+            <p class="text-gray-600 mt-2 text-sm">
+                نوبت شما برای «مانیکور» در سالن مریم
+                <br>
+                روز یک‌شنبه ۲۲ام، ساعت ۱۰:۳۰
+                <br>
+                با موفقیت ثبت شد.
+            </p>
+            <button class="w-full h-12 bg-primary text-white rounded-lg font-semibold mt-6" onclick="hideConfirmation(); showScreen('screen-my-bookings');">
+                مشاهده نوبت‌ها
+            </button>
+        </div>
+    </div>
+
+
+    <!-- 5. JavaScript for screen navigation -->
+    <script>
+        let screens = {};
+        let tabs = {};
+        let modal = null;
+        let mainScrollContainer = null;
+        let bookButton = null;
+        let screenOrder = [];
+        let currentScreenIndex = 0;
+        let circleNavButtons = {
+            prev: null,
+            next: null
+        };
+        let navigationInitialized = false;
+
+        function initializeNavigation() {
+            if (navigationInitialized) {
+                return;
+            }
+            navigationInitialized = true;
+
+            screens = {
+                'screen-login': document.getElementById('screen-login'),
+                'screen-otp': document.getElementById('screen-otp'),
+                'screen-home': document.getElementById('screen-home'),
+                'screen-results': document.getElementById('screen-results'),
+                'screen-map': document.getElementById('screen-map'),
+                'screen-details': document.getElementById('screen-details'),
+                'screen-booking': document.getElementById('screen-booking'),
+                'screen-my-bookings': document.getElementById('screen-my-bookings'),
+                'screen-profile': document.getElementById('screen-profile')
+            };
+
+            tabs = {
+                'services': document.getElementById('tab-services'),
+                'reviews': document.getElementById('tab-reviews'),
+                'info': document.getElementById('tab-info')
+            };
+
+            modal = document.getElementById('modal-confirm');
+            mainScrollContainer = document.querySelector('main.flex-1');
+            bookButton = document.getElementById('book-button');
+
+            screenOrder = [
+                'screen-login',
+                'screen-otp',
+                'screen-home',
+                'screen-results',
+                'screen-map',
+                'screen-details',
+                'screen-booking',
+                'screen-my-bookings',
+                'screen-profile'
+            ].filter(id => screens[id]);
+
+            circleNavButtons = {
+                prev: document.getElementById('nav-prev'),
+                next: document.getElementById('nav-next')
+            };
+
+            showScreen('screen-login');
+        }
+
+        function updateCircleNavState() {
+            if (!circleNavButtons.prev || !circleNavButtons.next) {
+                return;
+            }
+
+            circleNavButtons.prev.disabled = currentScreenIndex === 0;
+            circleNavButtons.next.disabled = currentScreenIndex === screenOrder.length - 1;
+        }
+
+        function showNextScreen() {
+            if (currentScreenIndex < screenOrder.length - 1) {
+                showScreen(screenOrder[currentScreenIndex + 1]);
+            }
+        }
+
+        function showPrevScreen() {
+            if (currentScreenIndex > 0) {
+                showScreen(screenOrder[currentScreenIndex - 1]);
+            }
+        }
+
+        /**
+         * Shows a specific screen by ID and hides all others.
+         * @param {string} screenId The ID of the screen to show.
+         */
+        function showScreen(screenId) {
+            // Hide all screens
+            for (const id in screens) {
+                if (screens[id]) {
+                    screens[id].classList.add('hidden-screen');
+                }
+            }
+            
+            // Show the target screen
+            if (screens[screenId]) {
+                screens[screenId].classList.remove('hidden-screen');
+                
+                // Scroll to top of the main container
+                if (mainScrollContainer) {
+                    mainScrollContainer.scrollTop = 0;
+                }
+
+                const nextIndex = screenOrder.indexOf(screenId);
+                if (nextIndex !== -1) {
+                    currentScreenIndex = nextIndex;
+                }
+                updateCircleNavState();
+            } else {
+                console.error("Screen not found:", screenId);
+            }
+        }
+
+        /**
+         * Handles tab switching for the details page.
+         * @param {string} tabId The ID of the tab content to show.
+         */
+        function showTab(tabId) {
+            // Hide all tab contents
+            for (const id in tabs) {
+                if (tabs[id]) {
+                    tabs[id].classList.add('hidden-screen');
+                    tabs[id].classList.remove('block');
+                }
+            }
+            
+            // Show the target tab content
+            if (tabs[tabId]) {
+                tabs[tabId].classList.remove('hidden-screen');
+                tabs[tabId].classList.add('block');
+            } else {
+                console.error("Tab not found:", tabId);
+            }
+            
+            // Update active tab style
+            const tabButtons = document.querySelectorAll('#screen-details nav button');
+            tabButtons.forEach(button => {
+                button.classList.remove('tab-active');
+                button.classList.add('text-gray-500', 'border-transparent');
+                if (button.getAttribute('onclick') === `showTab('${tabId}')`) {
+                    button.classList.add('tab-active');
+                    button.classList.remove('text-gray-500', 'border-transparent');
+                }
+            });
+        }
+
+        /**
+         * Handles selecting a time slot
+         * @param {HTMLElement} element The clicked time slot button.
+         */
+        function selectSlot(element) {
+            // Clear previous selection
+            const slots = document.querySelectorAll('#time-slot-container button');
+            slots.forEach(slot => {
+                slot.classList.remove('slot-selected');
+            });
+            
+            // Add new selection
+            element.classList.add('slot-selected');
+            
+            // Enable book button
+            if (bookButton) {
+                bookButton.disabled = false;
+                bookButton.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+        }
+
+        function showConfirmation() {
+            if (modal) {
+                modal.classList.remove('hidden-screen');
+                modal.classList.add('flex');
+            }
+        }
+
+        function hideConfirmation() {
+            if (modal) {
+                modal.classList.add('hidden-screen');
+                modal.classList.remove('flex');
+            }
+        }
+
+        // Expose functions for inline handlers
+        window.showScreen = showScreen;
+        window.showNextScreen = showNextScreen;
+        window.showPrevScreen = showPrevScreen;
+        window.showTab = showTab;
+        window.selectSlot = selectSlot;
+        window.showConfirmation = showConfirmation;
+        window.hideConfirmation = hideConfirmation;
+
+        // Initialize once the DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeNavigation);
+        } else {
+            initializeNavigation();
+        }
+
+    </script>
+</body>
+</html>
