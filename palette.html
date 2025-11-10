@@ -12,15 +12,15 @@
         body {
             margin: 0;
             font-family: "Segoe UI", Arial, sans-serif;
-            background: #f3f4f6;
+            background: radial-gradient(circle at top, #f8fafc 0%, #e0e7ff 45%, #e2e8f0 100%);
             color: #111827;
             line-height: 1.5;
         }
 
         .page {
-            max-width: 1200px;
+            max-width: 1280px;
             margin: 0 auto;
-            padding: 2.5rem 1.5rem 4rem;
+            padding: 3rem 1.5rem 4rem;
         }
 
         h1 {
@@ -41,21 +41,35 @@
         }
 
         .card {
-            background: var(--card-bg, #fff);
-            border-radius: 1.25rem;
-            padding: 1.5rem;
-            box-shadow: 0 20px 35px -25px rgba(15, 23, 42, 0.4);
-            border: 1px solid var(--card-border, #e5e7eb);
+            background: color-mix(in srgb, var(--card-bg, #fff) 85%, rgba(255, 255, 255, 0.35));
+            border-radius: 1.5rem;
+            padding: 1.75rem;
+            box-shadow: 0 25px 60px -30px rgba(15, 23, 42, 0.65);
+            border: 1px solid color-mix(in srgb, var(--card-border, #e5e7eb) 80%, rgba(255,255,255,0.4));
+            backdrop-filter: blur(18px) saturate(120%);
+            -webkit-backdrop-filter: blur(18px) saturate(120%);
             display: flex;
             flex-direction: column;
-            gap: 0.75rem;
+            gap: 0.85rem;
             color: var(--text-primary, #0f172a);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background: linear-gradient(135deg, rgba(255,255,255,0.18), transparent 55%);
+            pointer-events: none;
         }
 
         .card h2 {
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             margin: 0;
             color: inherit;
+            letter-spacing: 0.02em;
         }
 
         .palette {
@@ -85,10 +99,11 @@
 
         .swatch {
             flex-shrink: 0;
-            width: 52px;
-            height: 32px;
+            width: 56px;
+            height: 34px;
             border-radius: 999px;
             border: 1px solid rgba(15, 23, 42, 0.15);
+            box-shadow: inset 0 1px 3px rgba(15, 23, 42, 0.2);
         }
 
         @media (prefers-color-scheme: dark) {
@@ -116,329 +131,468 @@
 <body>
     <main class="page">
         <h1>Salon Palette Explorer</h1>
-        <p class="lead">Ten curated palettes designed for the salon booking experience. Each card shows the key colors you can plug into your Tailwind config or CSS variables.</p>
+        <p class="lead">Forty curated palettes tailored for the salon booking experience. Each card shows the key colors you can drop into Tailwind or CSS variables instantly.</p>
 
-        <section class="grid">
-            <!-- Iris Glow -->
-            <article class="card" style="--card-bg:#FFFFFF; --card-border:#E5E7EB; --text-primary:#111827; --text-secondary:#4B5563; --text-muted:#6B7280;">
-                <h2>Iris Glow</h2>
-                <div class="palette">
-                    <div class="swatch-row">
-                        <span class="label">Primary</span>
-                        <span class="value">#8B5CF6</span>
-                        <span class="swatch" style="background:#8B5CF6;"></span>
-                    </div>
-                    <div class="swatch-row">
-                        <span class="label">Secondary</span>
-                        <span class="value">#F97316</span>
-                        <span class="swatch" style="background:#F97316;"></span>
-                    </div>
-                    <div class="swatch-row">
-                        <span class="label">Accent</span>
-                        <span class="value">#10B981</span>
-                        <span class="swatch" style="background:#10B981;"></span>
-                    </div>
-                    <div class="swatch-row">
-                        <span class="label">Surface</span>
-                        <span class="value">#FFFFFF</span>
-                        <span class="swatch" style="background:#FFFFFF;"></span>
-                    </div>
-                    <div class="swatch-row">
-                        <span class="label">Background</span>
-                        <span class="value">#F3F4F6</span>
-                        <span class="swatch" style="background:#F3F4F6;"></span>
-                    </div>
-                </div>
-            </article>
-
-            <!-- Rose Sunrise -->
-            <article class="card" style="--card-bg:#FFF7ED; --card-border:#FED7AA; --text-primary:#1F2937; --text-secondary:#6B7280; --text-muted:#9CA3AF;">
-                <h2>Rose Sunrise</h2>
-                <div class="palette">
-                    <div class="swatch-row">
-                        <span class="label">Primary</span>
-                        <span class="value">#EC4899</span>
-                        <span class="swatch" style="background:#EC4899;"></span>
-                    </div>
-                    <div class="swatch-row">
-                        <span class="label">Secondary</span>
-                        <span class="value">#FBBF24</span>
-                        <span class="swatch" style="background:#FBBF24;"></span>
-                    </div>
-                    <div class="swatch-row">
-                        <span class="label">Accent</span>
-                        <span class="value">#F97316</span>
-                        <span class="swatch" style="background:#F97316;"></span>
-                    </div>
-                    <div class="swatch-row">
-                        <span class="label">Surface</span>
-                        <span class="value">#FFF7ED</span>
-                        <span class="swatch" style="background:#FFF7ED;"></span>
-                    </div>
-                    <div class="swatch-row">
-                        <span class="label">Background</span>
-                        <span class="value">#FFF1F2</span>
-                        <span class="swatch" style="background:#FFF1F2;"></span>
-                    </div>
-                </div>
-            </article>
-
-            <!-- Velvet Amber -->
-            <article class="card" style="--card-bg:#FFFBEB; --card-border:#FDE68A; --text-primary:#1E1B4B; --text-secondary:#4338CA; --text-muted:#6D28D9;">
-                <h2>Velvet Amber</h2>
-                <div class="palette">
-                    <div class="swatch-row">
-                        <span class="label">Primary</span>
-                        <span class="value">#7C3AED</span>
-                        <span class="swatch" style="background:#7C3AED;"></span>
-                    </div>
-                    <div class="swatch-row">
-                        <span class="label">Secondary</span>
-                        <span class="value">#F59E0B</span>
-                        <span class="swatch" style="background:#F59E0B;"></span>
-                    </div>
-                    <div class="swatch-row">
-                        <span class="label">Accent</span>
-                        <span class="value">#FB7185</span>
-                        <span class="swatch" style="background:#FB7185;"></span>
-                    </div>
-                    <div class="swatch-row">
-                        <span class="label">Surface</span>
-                        <span class="value">#FFFBEB</span>
-                        <span class="swatch" style="background:#FFFBEB;"></span>
-                    </div>
-                    <div class="swatch-row">
-                        <span class="label">Background</span>
-                        <span class="value">#F5F3FF</span>
-                        <span class="swatch" style="background:#F5F3FF;"></span>
-                    </div>
-                </div>
-            </article>
-
-            <!-- Mint Bouquet -->
-            <article class="card" style="--card-bg:#ECFEFF; --card-border:#A7F3D0; --text-primary:#0F172A; --text-secondary:#475569; --text-muted:#64748B;">
-                <h2>Mint Bouquet</h2>
-                <div class="palette">
-                    <div class="swatch-row">
-                        <span class="label">Primary</span>
-                        <span class="value">#14B8A6</span>
-                        <span class="swatch" style="background:#14B8A6;"></span>
-                    </div>
-                    <div class="swatch-row">
-                        <span class="label">Secondary</span>
-                        <span class="value">#A855F7</span>
-                        <span class="swatch" style="background:#A855F7;"></span>
-                    </div>
-                    <div class="swatch-row">
-                        <span class="label">Accent</span>
-                        <span class="value">#FDE047</span>
-                        <span class="swatch" style="background:#FDE047;"></span>
-                    </div>
-                    <div class="swatch-row">
-                        <span class="label">Surface</span>
-                        <span class="value">#ECFEFF</span>
-                        <span class="swatch" style="background:#ECFEFF;"></span>
-                    </div>
-                    <div class="swatch-row">
-                        <span class="label">Background</span>
-                        <span class="value">#F7FEFF</span>
-                        <span class="swatch" style="background:#F7FEFF;"></span>
-                    </div>
-                </div>
-            </article>
-
-            <!-- Amber Noir -->
-            <article class="card" style="--card-bg:#1F2937; --card-border:#0F172A; --text-primary:#F9FAFB; --text-secondary:#E5E7EB; --text-muted:#9CA3AF;">
-                <h2>Amber Noir</h2>
-                <div class="palette">
-                    <div class="swatch-row">
-                        <span class="label">Primary</span>
-                        <span class="value">#D97706</span>
-                        <span class="swatch" style="background:#D97706;"></span>
-                    </div>
-                    <div class="swatch-row">
-                        <span class="label">Secondary</span>
-                        <span class="value">#7C3AED</span>
-                        <span class="swatch" style="background:#7C3AED;"></span>
-                    </div>
-                    <div class="swatch-row">
-                        <span class="label">Accent</span>
-                        <span class="value">#FCD34D</span>
-                        <span class="swatch" style="background:#FCD34D;"></span>
-                    </div>
-                    <div class="swatch-row">
-                        <span class="label">Surface</span>
-                        <span class="value">#1F2937</span>
-                        <span class="swatch" style="background:#1F2937;"></span>
-                    </div>
-                    <div class="swatch-row">
-                        <span class="label">Background</span>
-                        <span class="value">#111827</span>
-                        <span class="swatch" style="background:#111827;"></span>
-                    </div>
-                </div>
-            </article>
-
-            <!-- Pastel Bloom -->
-            <article class="card" style="--card-bg:#FEF2F2; --card-border:#FBCFE8; --text-primary:#312E81; --text-secondary:#4C1D95; --text-muted:#6D28D9;">
-                <h2>Pastel Bloom</h2>
-                <div class="palette">
-                    <div class="swatch-row">
-                        <span class="label">Primary</span>
-                        <span class="value">#F472B6</span>
-                        <span class="swatch" style="background:#F472B6;"></span>
-                    </div>
-                    <div class="swatch-row">
-                        <span class="label">Secondary</span>
-                        <span class="value">#C084FC</span>
-                        <span class="swatch" style="background:#C084FC;"></span>
-                    </div>
-                    <div class="swatch-row">
-                        <span class="label">Accent</span>
-                        <span class="value">#FDE047</span>
-                        <span class="swatch" style="background:#FDE047;"></span>
-                    </div>
-                    <div class="swatch-row">
-                        <span class="label">Surface</span>
-                        <span class="value">#FEF2F2</span>
-                        <span class="swatch" style="background:#FEF2F2;"></span>
-                    </div>
-                    <div class="swatch-row">
-                        <span class="label">Background</span>
-                        <span class="value">#FDF2F8</span>
-                        <span class="swatch" style="background:#FDF2F8;"></span>
-                    </div>
-                </div>
-            </article>
-
-            <!-- Citrus Lavender -->
-            <article class="card" style="--card-bg:#FFF9ED; --card-border:#FDE68A; --text-primary:#1D1E3C; --text-secondary:#5B5F8A; --text-muted:#8B5CF6;">
-                <h2>Citrus Lavender</h2>
-                <div class="palette">
-                    <div class="swatch-row">
-                        <span class="label">Primary</span>
-                        <span class="value">#A855F7</span>
-                        <span class="swatch" style="background:#A855F7;"></span>
-                    </div>
-                    <div class="swatch-row">
-                        <span class="label">Secondary</span>
-                        <span class="value">#FCD34D</span>
-                        <span class="swatch" style="background:#FCD34D;"></span>
-                    </div>
-                    <div class="swatch-row">
-                        <span class="label">Accent</span>
-                        <span class="value">#34D399</span>
-                        <span class="swatch" style="background:#34D399;"></span>
-                    </div>
-                    <div class="swatch-row">
-                        <span class="label">Surface</span>
-                        <span class="value">#FFF9ED</span>
-                        <span class="swatch" style="background:#FFF9ED;"></span>
-                    </div>
-                    <div class="swatch-row">
-                        <span class="label">Background</span>
-                        <span class="value">#F5F3FF</span>
-                        <span class="swatch" style="background:#F5F3FF;"></span>
-                    </div>
-                </div>
-            </article>
-
-            <!-- Saffron Slate -->
-            <article class="card" style="--card-bg:#FFFBEB; --card-border:#FCD34D; --text-primary:#1F2937; --text-secondary:#4B5563; --text-muted:#6B7280;">
-                <h2>Saffron Slate</h2>
-                <div class="palette">
-                    <div class="swatch-row">
-                        <span class="label">Primary</span>
-                        <span class="value">#F59E0B</span>
-                        <span class="swatch" style="background:#F59E0B;"></span>
-                    </div>
-                    <div class="swatch-row">
-                        <span class="label">Secondary</span>
-                        <span class="value">#7F1D1D</span>
-                        <span class="swatch" style="background:#7F1D1D;"></span>
-                    </div>
-                    <div class="swatch-row">
-                        <span class="label">Accent</span>
-                        <span class="value">#8B5CF6</span>
-                        <span class="swatch" style="background:#8B5CF6;"></span>
-                    </div>
-                    <div class="swatch-row">
-                        <span class="label">Surface</span>
-                        <span class="value">#FFFBEB</span>
-                        <span class="swatch" style="background:#FFFBEB;"></span>
-                    </div>
-                    <div class="swatch-row">
-                        <span class="label">Background</span>
-                        <span class="value">#F3F4F6</span>
-                        <span class="swatch" style="background:#F3F4F6;"></span>
-                    </div>
-                </div>
-            </article>
-
-            <!-- Midnight Orchid -->
-            <article class="card" style="--card-bg:#1F1B2C; --card-border:#0F0A1A; --text-primary:#F9FAFB; --text-secondary:#E0E7FF; --text-muted:#C7D2FE;">
-                <h2>Midnight Orchid</h2>
-                <div class="palette">
-                    <div class="swatch-row">
-                        <span class="label">Primary</span>
-                        <span class="value">#4C1D95</span>
-                        <span class="swatch" style="background:#4C1D95;"></span>
-                    </div>
-                    <div class="swatch-row">
-                        <span class="label">Secondary</span>
-                        <span class="value">#F87171</span>
-                        <span class="swatch" style="background:#F87171;"></span>
-                    </div>
-                    <div class="swatch-row">
-                        <span class="label">Accent</span>
-                        <span class="value">#FBBF24</span>
-                        <span class="swatch" style="background:#FBBF24;"></span>
-                    </div>
-                    <div class="swatch-row">
-                        <span class="label">Surface</span>
-                        <span class="value">#1F1B2C</span>
-                        <span class="swatch" style="background:#1F1B2C;"></span>
-                    </div>
-                    <div class="swatch-row">
-                        <span class="label">Background</span>
-                        <span class="value">#0F0A1A</span>
-                        <span class="swatch" style="background:#0F0A1A;"></span>
-                    </div>
-                </div>
-            </article>
-
-            <!-- Blush Breeze -->
-            <article class="card" style="--card-bg:#FFF5F7; --card-border:#FBCFE8; --text-primary:#1F1A2E; --text-secondary:#4C4069; --text-muted:#6B5B8D;">
-                <h2>Blush Breeze</h2>
-                <div class="palette">
-                    <div class="swatch-row">
-                        <span class="label">Primary</span>
-                        <span class="value">#F472B6</span>
-                        <span class="swatch" style="background:#F472B6;"></span>
-                    </div>
-                    <div class="swatch-row">
-                        <span class="label">Secondary</span>
-                        <span class="value">#FB7185</span>
-                        <span class="swatch" style="background:#FB7185;"></span>
-                    </div>
-                    <div class="swatch-row">
-                        <span class="label">Accent</span>
-                        <span class="value">#A78BFA</span>
-                        <span class="swatch" style="background:#A78BFA;"></span>
-                    </div>
-                    <div class="swatch-row">
-                        <span class="label">Surface</span>
-                        <span class="value">#FFF5F7</span>
-                        <span class="swatch" style="background:#FFF5F7;"></span>
-                    </div>
-                    <div class="swatch-row">
-                        <span class="label">Background</span>
-                        <span class="value">#FDF2F8</span>
-                        <span class="swatch" style="background:#FDF2F8;"></span>
-                    </div>
-                </div>
-            </article>
-        </section>
+        <section class="grid" id="palette-grid"></section>
     </main>
+
+    <script>
+        const paletteData = [
+    {
+        "name": "Iris Glow",
+        "primary": "#8B5CF6",
+        "secondary": "#F97316",
+        "surface": "#FFFFFF",
+        "background": "#F3F4F6",
+        "accent": "#10B981",
+        "textPrimary": "#111827",
+        "textSecondary": "#4B5563"
+    },
+    {
+        "name": "Rose Sunrise",
+        "primary": "#EC4899",
+        "secondary": "#FBBF24",
+        "surface": "#FFF7ED",
+        "background": "#FFF1F2",
+        "accent": "#F97316",
+        "textPrimary": "#1F2937",
+        "textSecondary": "#6B7280"
+    },
+    {
+        "name": "Velvet Amber",
+        "primary": "#7C3AED",
+        "secondary": "#F59E0B",
+        "surface": "#FFFBEB",
+        "background": "#F5F3FF",
+        "accent": "#FB7185",
+        "textPrimary": "#1E1B4B",
+        "textSecondary": "#4338CA"
+    },
+    {
+        "name": "Mint Bouquet",
+        "primary": "#14B8A6",
+        "secondary": "#A855F7",
+        "surface": "#ECFEFF",
+        "background": "#F7FEFF",
+        "accent": "#FDE047",
+        "textPrimary": "#0F172A",
+        "textSecondary": "#475569"
+    },
+    {
+        "name": "Amber Noir",
+        "primary": "#D97706",
+        "secondary": "#7C3AED",
+        "surface": "#1F2937",
+        "background": "#111827",
+        "accent": "#FCD34D",
+        "textPrimary": "#F9FAFB",
+        "textSecondary": "#E5E7EB"
+    },
+    {
+        "name": "Pastel Bloom",
+        "primary": "#F472B6",
+        "secondary": "#C084FC",
+        "surface": "#FEF2F2",
+        "background": "#FDF2F8",
+        "accent": "#FDE047",
+        "textPrimary": "#312E81",
+        "textSecondary": "#4C1D95"
+    },
+    {
+        "name": "Citrus Lavender",
+        "primary": "#A855F7",
+        "secondary": "#FCD34D",
+        "surface": "#FFF9ED",
+        "background": "#F5F3FF",
+        "accent": "#34D399",
+        "textPrimary": "#1D1E3C",
+        "textSecondary": "#5B5F8A"
+    },
+    {
+        "name": "Saffron Slate",
+        "primary": "#F59E0B",
+        "secondary": "#7F1D1D",
+        "surface": "#FFFBEB",
+        "background": "#F3F4F6",
+        "accent": "#8B5CF6",
+        "textPrimary": "#1F2937",
+        "textSecondary": "#4B5563"
+    },
+    {
+        "name": "Midnight Orchid",
+        "primary": "#4C1D95",
+        "secondary": "#F87171",
+        "surface": "#1F1B2C",
+        "background": "#0F0A1A",
+        "accent": "#FBBF24",
+        "textPrimary": "#F9FAFB",
+        "textSecondary": "#E0E7FF"
+    },
+    {
+        "name": "Blush Breeze",
+        "primary": "#F472B6",
+        "secondary": "#FB7185",
+        "surface": "#FFF5F7",
+        "background": "#FDF2F8",
+        "accent": "#A78BFA",
+        "textPrimary": "#1F1A2E",
+        "textSecondary": "#4C4069"
+    },
+    {
+        "name": "Coral Mist",
+        "primary": "#FB7185",
+        "secondary": "#34D399",
+        "surface": "#FFF7F7",
+        "background": "#FFE4E6",
+        "accent": "#F472B6",
+        "textPrimary": "#2C0E1A",
+        "textSecondary": "#6B1F3A"
+    },
+    {
+        "name": "Emerald Dawn",
+        "primary": "#059669",
+        "secondary": "#FDE047",
+        "surface": "#ECFDF5",
+        "background": "#F0FDFA",
+        "accent": "#F97316",
+        "textPrimary": "#064E3B",
+        "textSecondary": "#0F766E"
+    },
+    {
+        "name": "Lavender Steel",
+        "primary": "#7C3AED",
+        "secondary": "#94A3B8",
+        "surface": "#F1F5F9",
+        "background": "#E0E7FF",
+        "accent": "#F472B6",
+        "textPrimary": "#0F172A",
+        "textSecondary": "#475569"
+    },
+    {
+        "name": "Golden Petal",
+        "primary": "#EAB308",
+        "secondary": "#F97316",
+        "surface": "#FEF9C3",
+        "background": "#FFFBEB",
+        "accent": "#A855F7",
+        "textPrimary": "#422006",
+        "textSecondary": "#713F12"
+    },
+    {
+        "name": "Ocean Fig",
+        "primary": "#2563EB",
+        "secondary": "#A855F7",
+        "surface": "#EFF6FF",
+        "background": "#E0F2FE",
+        "accent": "#14B8A6",
+        "textPrimary": "#0F172A",
+        "textSecondary": "#1E3A8A"
+    },
+    {
+        "name": "Mulberry Sand",
+        "primary": "#9333EA",
+        "secondary": "#F59E0B",
+        "surface": "#FEF3C7",
+        "background": "#FAEBD7",
+        "accent": "#64748B",
+        "textPrimary": "#2D1606",
+        "textSecondary": "#654321"
+    },
+    {
+        "name": "Peach Quartz",
+        "primary": "#FB7185",
+        "secondary": "#FCD34D",
+        "surface": "#FFF5F2",
+        "background": "#FFEAD5",
+        "accent": "#4ADE80",
+        "textPrimary": "#39150A",
+        "textSecondary": "#7C2D12"
+    },
+    {
+        "name": "Indigo Bloom",
+        "primary": "#4338CA",
+        "secondary": "#F472B6",
+        "surface": "#EEF2FF",
+        "background": "#E0E7FF",
+        "accent": "#22D3EE",
+        "textPrimary": "#111046",
+        "textSecondary": "#3730A3"
+    },
+    {
+        "name": "Terra Blush",
+        "primary": "#B45309",
+        "secondary": "#DB2777",
+        "surface": "#FFF1E6",
+        "background": "#FDEBEB",
+        "accent": "#65A30D",
+        "textPrimary": "#3B0900",
+        "textSecondary": "#6B1A09"
+    },
+    {
+        "name": "Frosted Plum",
+        "primary": "#A855F7",
+        "secondary": "#5B21B6",
+        "surface": "#F5F3FF",
+        "background": "#ECE4F7",
+        "accent": "#FDE68A",
+        "textPrimary": "#2B1A4F",
+        "textSecondary": "#5B4F82"
+    },
+    {
+        "name": "Azure Pearl",
+        "primary": "#0EA5E9",
+        "secondary": "#6366F1",
+        "surface": "#E0F2FE",
+        "background": "#ECFEFF",
+        "accent": "#FACC15",
+        "textPrimary": "#0C4A6E",
+        "textSecondary": "#2563EB"
+    },
+    {
+        "name": "Cocoa Rose",
+        "primary": "#B45309",
+        "secondary": "#BE123C",
+        "surface": "#FFF7ED",
+        "background": "#FCE7F3",
+        "accent": "#FDBA74",
+        "textPrimary": "#3F1D12",
+        "textSecondary": "#7B341E"
+    },
+    {
+        "name": "Silver Magnolia",
+        "primary": "#9CA3AF",
+        "secondary": "#F472B6",
+        "surface": "#F5F5F5",
+        "background": "#E5E7EB",
+        "accent": "#D97706",
+        "textPrimary": "#1F2937",
+        "textSecondary": "#4B5563"
+    },
+    {
+        "name": "Opal Reef",
+        "primary": "#22D3EE",
+        "secondary": "#0EA5E9",
+        "surface": "#E0FCFF",
+        "background": "#CCFBF1",
+        "accent": "#A3E635",
+        "textPrimary": "#042F2E",
+        "textSecondary": "#0F766E"
+    },
+    {
+        "name": "Berry Smoke",
+        "primary": "#9333EA",
+        "secondary": "#9D174D",
+        "surface": "#FDECF5",
+        "background": "#F3E8FF",
+        "accent": "#FB7185",
+        "textPrimary": "#341118",
+        "textSecondary": "#5F1945"
+    },
+    {
+        "name": "Copper Sage",
+        "primary": "#D97706",
+        "secondary": "#047857",
+        "surface": "#FFF7ED",
+        "background": "#ECFDF5",
+        "accent": "#F97316",
+        "textPrimary": "#422006",
+        "textSecondary": "#064E3B"
+    },
+    {
+        "name": "Lilac Frost",
+        "primary": "#A78BFA",
+        "secondary": "#C4B5FD",
+        "surface": "#F5F3FF",
+        "background": "#EEF2FF",
+        "accent": "#F9A8D4",
+        "textPrimary": "#312E81",
+        "textSecondary": "#5145CD"
+    },
+    {
+        "name": "Sunlit Charcoal",
+        "primary": "#FACC15",
+        "secondary": "#1E293B",
+        "surface": "#0F172A",
+        "background": "#020617",
+        "accent": "#FB7185",
+        "textPrimary": "#FEF9C3",
+        "textSecondary": "#CBD5F5"
+    },
+    {
+        "name": "Amethyst Foam",
+        "primary": "#C084FC",
+        "secondary": "#F9A8D4",
+        "surface": "#FFF0F6",
+        "background": "#F5E1FF",
+        "accent": "#7C3AED",
+        "textPrimary": "#3B0764",
+        "textSecondary": "#86198F"
+    },
+    {
+        "name": "Tangerine Slate",
+        "primary": "#F97316",
+        "secondary": "#475569",
+        "surface": "#FFF7ED",
+        "background": "#E2E8F0",
+        "accent": "#A78BFA",
+        "textPrimary": "#1F2937",
+        "textSecondary": "#475569"
+    },
+    {
+        "name": "Pastel Lagoon",
+        "primary": "#38BDF8",
+        "secondary": "#34D399",
+        "surface": "#ECFEFF",
+        "background": "#D1FAE5",
+        "accent": "#FDE047",
+        "textPrimary": "#0C4A6E",
+        "textSecondary": "#0F766E"
+    },
+    {
+        "name": "Mocha Bloom",
+        "primary": "#7C2D12",
+        "secondary": "#F472B6",
+        "surface": "#FFF7ED",
+        "background": "#FDECF5",
+        "accent": "#F59E0B",
+        "textPrimary": "#3B0B0F",
+        "textSecondary": "#7C2D12"
+    },
+    {
+        "name": "Velvet Lagoon",
+        "primary": "#115E59",
+        "secondary": "#0D9488",
+        "surface": "#CCFBF1",
+        "background": "#99F6E4",
+        "accent": "#F97316",
+        "textPrimary": "#022C22",
+        "textSecondary": "#0F766E"
+    },
+    {
+        "name": "Crimson Dusk",
+        "primary": "#B91C1C",
+        "secondary": "#F97316",
+        "surface": "#FFF1F2",
+        "background": "#FEE2E2",
+        "accent": "#FBBF24",
+        "textPrimary": "#450A0A",
+        "textSecondary": "#9B1C1C"
+    },
+    {
+        "name": "Glacier Iris",
+        "primary": "#6366F1",
+        "secondary": "#22D3EE",
+        "surface": "#EEF2FF",
+        "background": "#E0F2FE",
+        "accent": "#F472B6",
+        "textPrimary": "#1E1B4B",
+        "textSecondary": "#0F172A"
+    },
+    {
+        "name": "Peony Clay",
+        "primary": "#DB2777",
+        "secondary": "#A16207",
+        "surface": "#FFF1F2",
+        "background": "#FEF3C7",
+        "accent": "#FDE047",
+        "textPrimary": "#4C0519",
+        "textSecondary": "#7C2D12"
+    },
+    {
+        "name": "Sapphire Bloom",
+        "primary": "#1D4ED8",
+        "secondary": "#C026D3",
+        "surface": "#E0E7FF",
+        "background": "#FAE8FF",
+        "accent": "#22D3EE",
+        "textPrimary": "#0F172A",
+        "textSecondary": "#4C1D95"
+    },
+    {
+        "name": "Olive Orchid",
+        "primary": "#78716C",
+        "secondary": "#8B5CF6",
+        "surface": "#F5F5F4",
+        "background": "#E7E5E4",
+        "accent": "#84CC16",
+        "textPrimary": "#292524",
+        "textSecondary": "#4B5563"
+    },
+    {
+        "name": "Sunkissed Violet",
+        "primary": "#F97316",
+        "secondary": "#7C3AED",
+        "surface": "#FFF7ED",
+        "background": "#F3E8FF",
+        "accent": "#FCD34D",
+        "textPrimary": "#3B0B0F",
+        "textSecondary": "#5B21B6"
+    },
+    {
+        "name": "Rosewater Mint",
+        "primary": "#F472B6",
+        "secondary": "#34D399",
+        "surface": "#FFF5F7",
+        "background": "#ECFDF5",
+        "accent": "#A78BFA",
+        "textPrimary": "#3F0F1E",
+        "textSecondary": "#0F766E"
+    }
+];
+
+        const swatchFields = [
+            { label: 'Primary', key: 'primary' },
+            { label: 'Secondary', key: 'secondary' },
+            { label: 'Accent', key: 'accent' },
+            { label: 'Surface', key: 'surface' },
+            { label: 'Background', key: 'background' },
+            { label: 'Text Primary', key: 'textPrimary' },
+            { label: 'Text Secondary', key: 'textSecondary' }
+        ];
+
+        const grid = document.getElementById('palette-grid');
+
+        paletteData.forEach(palette => {
+            const card = document.createElement('article');
+            card.className = 'card';
+            card.style.setProperty('--card-bg', palette.surface);
+            card.style.setProperty('--card-border', palette.background);
+            card.style.setProperty('--text-primary', palette.textPrimary);
+            card.style.setProperty('--text-secondary', palette.textSecondary);
+            card.style.setProperty('--text-muted', palette.textSecondary);
+
+            const title = document.createElement('h2');
+            title.textContent = palette.name;
+            card.appendChild(title);
+
+            const list = document.createElement('div');
+            list.className = 'palette';
+
+            swatchFields.forEach(field => {
+                const hex = palette[field.key];
+                const row = document.createElement('div');
+                row.className = 'swatch-row';
+
+                const label = document.createElement('span');
+                label.className = 'label';
+                label.textContent = field.label;
+
+                const value = document.createElement('span');
+                value.className = 'value';
+                value.textContent = hex;
+
+                const swatch = document.createElement('span');
+                swatch.className = 'swatch';
+                swatch.style.background = hex;
+
+                row.append(label, value, swatch);
+                list.appendChild(row);
+            });
+
+            card.appendChild(list);
+            grid.appendChild(card);
+        });
+    </script>
+
 </body>
 </html>
