@@ -187,7 +187,10 @@
         const statusMessage = document.getElementById('status-message');
         const openNewTabBtn = document.getElementById('open-new-tab');
 
+        const YOUTUBE_PROXY_BASE = 'https://piped.video';
+
         let lastLoadedUrl = '';
+        let lastTransformationNote = '';
 
         function setStatus(text, state = 'info') {
             statusMessage.textContent = text;
@@ -195,6 +198,7 @@
         }
 
         function normalizeUrl(rawInput) {
+            lastTransformationNote = '';
             if (!rawInput) return '';
             let urlString = rawInput.trim();
             if (!urlString) return '';
@@ -203,31 +207,44 @@
             }
             try {
                 const url = new URL(urlString);
-                return transformSpecialCases(url);
+                const transformed = transformSpecialCases(url);
+                lastTransformationNote = transformed.note || '';
+                return transformed.url;
             } catch (error) {
                 return '';
             }
         }
 
         function transformSpecialCases(url) {
-            const hostname = url.hostname.replace(/^www\./i, '');
-            if (hostname === 'youtube.com' || hostname === 'm.youtube.com') {
-                const videoId = url.searchParams.get('v');
-                if (videoId) return buildYouTubeEmbed(videoId, url);
+            const hostname = url.hostname.replace(/^www\./i, '').toLowerCase();
+
+            if (isYouTubeDomain(hostname)) {
+                return {
+                    url: rewriteYouTubeToProxy(url, hostname),
+                    note: 'Routed through piped.video because YouTube blocks iframe embeds.'
+                };
             }
-            if (hostname === 'youtu.be') {
-                const videoId = url.pathname.slice(1);
-                if (videoId) return buildYouTubeEmbed(videoId, url);
-            }
+
             if (isGoogleDomain(hostname)) {
-                return buildGoogleEmbeddableUrl(url);
+                return {
+                    url: buildGoogleEmbeddableUrl(url),
+                    note: "Using Google's ?igu=1 endpoint for iframe compatibility."
+                };
             }
-            return url.toString();
+
+            return { url: url.toString() };
         }
 
         function isGoogleDomain(hostname) {
             return hostname === 'google.com' ||
                 hostname.endsWith('.google.com');
+        }
+
+        function isYouTubeDomain(hostname) {
+            return hostname === 'youtube.com' ||
+                hostname === 'm.youtube.com' ||
+                hostname === 'youtu.be' ||
+                hostname.endsWith('.youtube.com');
         }
 
         function buildGoogleEmbeddableUrl(url) {
@@ -240,16 +257,26 @@
             return url.toString();
         }
 
-        function buildYouTubeEmbed(videoId, originalUrl) {
-            const allowedParams = ['start', 'end', 'autoplay', 'controls', 'mute', 'list', 'index'];
-            const embedParams = new URLSearchParams();
-            allowedParams.forEach((param) => {
-                if (originalUrl.searchParams.has(param)) {
-                    embedParams.set(param, originalUrl.searchParams.get(param));
+        function rewriteYouTubeToProxy(url, hostname) {
+            const proxyOrigin = YOUTUBE_PROXY_BASE.replace(/\/$/, '');
+            let path = url.pathname || '/';
+            const params = new URLSearchParams(url.search);
+
+            if (hostname === 'youtu.be' && path.length > 1) {
+                params.set('v', path.slice(1));
+                path = '/watch';
+            } else if (path.startsWith('/shorts/')) {
+                const parts = path.split('/');
+                const shortId = parts[2];
+                if (shortId) {
+                    params.set('v', shortId);
+                    path = '/watch';
                 }
-            });
-            const query = embedParams.toString();
-            return `https://www.youtube.com/embed/${videoId}${query ? `?${query}` : ''}`;
+            }
+
+            const query = params.toString();
+            const hash = url.hash || '';
+            return `${proxyOrigin}${path}${query ? `?${query}` : ''}${hash}`;
         }
 
         urlForm.addEventListener('submit', (event) => {
@@ -264,7 +291,10 @@
             lastLoadedUrl = normalizedUrl;
             urlIframe.src = normalizedUrl;
             openNewTabBtn.disabled = false;
-            setStatus(`Trying to load: ${normalizedUrl}. If it does not display, the site may block framing.`, 'info');
+            const compatibilityNote = lastTransformationNote
+                ? ` ${lastTransformationNote}`
+                : ' If it does not display, the site may block framing.';
+            setStatus(`Trying to load: ${normalizedUrl}.${compatibilityNote}`, 'info');
         });
 
         openNewTabBtn.addEventListener('click', () => {
