@@ -3,43 +3,279 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>URL Loader</title>
+    <title>Embedded Browser</title>
     <style>
+        :root {
+            --bg: #010a06;
+            --panel: rgba(6, 32, 21, 0.82);
+            --border: rgba(94, 255, 180, 0.45);
+            --glow: rgba(94, 255, 180, 0.25);
+            --text: #ecfff5;
+            --muted: #9dd3b3;
+            --accent: #00c980;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: sans-serif;
+            margin: 0;
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            min-height: 100vh;
+            background: radial-gradient(circle at 20% 20%, #06281a 0%, var(--bg) 45%, #000 100%);
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
         }
+
+        .app-shell {
+            width: min(1100px, 100%);
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            padding: 32px clamp(18px, 4vw, 40px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(40px);
+        }
+
+        h1 {
+            margin: 0 0 6px 0;
+            font-size: clamp(1.75rem, 4vw, 2.4rem);
+            letter-spacing: 0.04em;
+        }
+
+        .subtitle {
+            margin: 0 0 24px 0;
+            color: var(--muted);
+            font-size: 1rem;
+        }
+
         #url-form {
-            margin-bottom: 20px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 14px;
         }
+
         #url-input {
-            width: 300px;
-            padding: 5px;
+            flex: 1;
+            min-width: 240px;
+            padding: 14px 18px;
+            border-radius: 999px;
+            border: 1px solid var(--border);
+            background: rgba(0, 0, 0, 0.35);
+            color: var(--text);
+            font-size: 1rem;
+            box-shadow: inset 0 1px 6px rgba(255, 255, 255, 0.08);
         }
+
+        #url-input::placeholder {
+            color: rgba(236, 255, 245, 0.4);
+        }
+
+        button {
+            border: none;
+            border-radius: 999px;
+            padding: 14px 26px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        #load-btn {
+            background: linear-gradient(130deg, rgba(94, 255, 180, 0.75), rgba(0, 201, 128, 0.65));
+            color: #012014;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+        }
+
+        #open-new-tab {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--border);
+            padding-inline: 22px;
+        }
+
+        button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        button:not(:disabled):hover {
+            transform: translateY(-2px);
+        }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .status {
+            font-size: 0.95rem;
+            color: var(--muted);
+            margin-bottom: 18px;
+        }
+
+        .status[data-state="error"] {
+            color: #ffb3b3;
+        }
+
+        .status[data-state="success"] {
+            color: #8effc7;
+        }
+
         #url-iframe {
             width: 100%;
-            height: 600px;
-            border: 1px solid #ccc;
+            height: min(75vh, 680px);
+            border-radius: 22px;
+            border: 1px solid var(--border);
+            background: rgba(0, 0, 0, 0.35);
+            box-shadow: inset 0 1px 12px rgba(255, 255, 255, 0.08), 0 25px 55px rgba(0, 0, 0, 0.5);
+        }
+
+        @media (max-width: 700px) {
+            #url-form {
+                flex-direction: column;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+                text-align: center;
+            }
         }
     </style>
 </head>
 <body>
-    <form id="url-form">
-        <input type="text" id="url-input" placeholder="Enter a URL">
-        <button type="submit">Load URL</button>
-    </form>
+    <main class="app-shell">
+        <h1>Quick Embed Browser</h1>
+        <p class="subtitle">Paste a URL (including YouTube). We’ll convert common links into iframe-friendly embeds and try to load them below.</p>
 
-    <iframe id="url-iframe" src=""></iframe>
+        <form id="url-form" autocomplete="off">
+            <input type="url" id="url-input" placeholder="e.g. youtube.com/watch?v=dQw4w9WgXcQ" required>
+            <button id="load-btn" type="submit">Load</button>
+        </form>
+
+        <div class="actions">
+            <button id="open-new-tab" type="button" disabled>Open current URL in new tab</button>
+        </div>
+
+        <p id="status-message" class="status" data-state="info">
+            Note: Some websites block being displayed inside an iframe. If a page refuses to load here, use the “open in new tab” option.
+        </p>
+
+        <iframe id="url-iframe"
+            title="Embedded website preview"
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </main>
 
     <script>
         const urlForm = document.getElementById('url-form');
         const urlInput = document.getElementById('url-input');
         const urlIframe = document.getElementById('url-iframe');
+        const statusMessage = document.getElementById('status-message');
+        const openNewTabBtn = document.getElementById('open-new-tab');
+
+        let lastLoadedUrl = '';
+
+        function setStatus(text, state = 'info') {
+            statusMessage.textContent = text;
+            statusMessage.dataset.state = state;
+        }
+
+        function normalizeUrl(rawInput) {
+            if (!rawInput) return '';
+            let urlString = rawInput.trim();
+            if (!urlString) return '';
+            if (!/^https?:\/\//i.test(urlString)) {
+                urlString = `https://${urlString}`;
+            }
+            try {
+                const url = new URL(urlString);
+                return transformSpecialCases(url);
+            } catch (error) {
+                return '';
+            }
+        }
+
+        function transformSpecialCases(url) {
+            const hostname = url.hostname.replace(/^www\./i, '');
+            if (hostname === 'youtube.com' || hostname === 'm.youtube.com') {
+                const videoId = url.searchParams.get('v');
+                if (videoId) return buildYouTubeEmbed(videoId, url);
+            }
+            if (hostname === 'youtu.be') {
+                const videoId = url.pathname.slice(1);
+                if (videoId) return buildYouTubeEmbed(videoId, url);
+            }
+            if (isGoogleDomain(hostname)) {
+                return buildGoogleEmbeddableUrl(url);
+            }
+            return url.toString();
+        }
+
+        function isGoogleDomain(hostname) {
+            return hostname === 'google.com' ||
+                hostname.endsWith('.google.com');
+        }
+
+        function buildGoogleEmbeddableUrl(url) {
+            if (!url.searchParams.has('igu')) {
+                url.searchParams.set('igu', '1');
+            }
+            if (!url.searchParams.has('gws_rd')) {
+                url.searchParams.set('gws_rd', 'ssl');
+            }
+            return url.toString();
+        }
+
+        function buildYouTubeEmbed(videoId, originalUrl) {
+            const allowedParams = ['start', 'end', 'autoplay', 'controls', 'mute', 'list', 'index'];
+            const embedParams = new URLSearchParams();
+            allowedParams.forEach((param) => {
+                if (originalUrl.searchParams.has(param)) {
+                    embedParams.set(param, originalUrl.searchParams.get(param));
+                }
+            });
+            const query = embedParams.toString();
+            return `https://www.youtube.com/embed/${videoId}${query ? `?${query}` : ''}`;
+        }
 
         urlForm.addEventListener('submit', (event) => {
             event.preventDefault();
-            const url = urlInput.value;
-            if (url) {
-                urlIframe.src = url;
+            const normalizedUrl = normalizeUrl(urlInput.value);
+            if (!normalizedUrl) {
+                setStatus('Please enter a valid URL (include a domain name).', 'error');
+                urlIframe.removeAttribute('src');
+                openNewTabBtn.disabled = true;
+                return;
+            }
+            lastLoadedUrl = normalizedUrl;
+            urlIframe.src = normalizedUrl;
+            openNewTabBtn.disabled = false;
+            setStatus(`Trying to load: ${normalizedUrl}. If it does not display, the site may block framing.`, 'info');
+        });
+
+        openNewTabBtn.addEventListener('click', () => {
+            if (lastLoadedUrl) {
+                window.open(lastLoadedUrl, '_blank', 'noopener');
+            }
+        });
+
+        urlIframe.addEventListener('load', () => {
+            if (lastLoadedUrl) {
+                setStatus(`Loaded: ${lastLoadedUrl}`, 'success');
             }
         });
     </script>
